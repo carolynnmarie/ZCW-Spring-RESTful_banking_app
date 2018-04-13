@@ -1,17 +1,13 @@
 package io.zipcoder.controller;
 
 import io.zipcoder.domain.Bill;
-import io.zipcoder.repository.BillRepository;
 import io.zipcoder.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Iterator;
 
 @RestController
 public class BillController {
@@ -26,29 +22,29 @@ public class BillController {
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
-        return billService.getAllBillsForSpecificAccount(account);
+    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(@PathVariable Long accountId) {
+        return billService.getAllBillsForAccount(); // I don't need to pass accountId to billService method
     }
 
     @RequestMapping(value="/bills/{billId}", method= RequestMethod.GET)
-    public ResponseEntity<?> getBillById(@PathVariable Long id) {
-        return billService.getBillById(id);
+    public ResponseEntity<?> getBillById(@PathVariable Long billId) {
+        return billService.getBillById(billId);
     }
 
-    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
-        return billService.getAllBillsForSpecificAccount(Account account);
-    }
-
-    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
-        return billService.getAllBillsForSpecificAccount(Account account);
-    }
-
-    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
-        return billService.getAllBillsForSpecificAccount(Account account);
-    }
+//    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
+//    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable Customer customerId) {
+//        return billService.getAllBillsForCustomer(customerId);
+//    }
+//
+//    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
+//    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Account account) {
+//        return billService.getAllBillsForAccount(Account account);
+//    }
+//
+//    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
+//    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Account account) {
+//        return billService.getAllBillsForAccount(Account account);
+//    }
 
 
 

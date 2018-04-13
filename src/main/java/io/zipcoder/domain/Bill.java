@@ -1,9 +1,6 @@
 package io.zipcoder.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Bill {
@@ -37,6 +34,7 @@ public class Bill {
     @Column(name = "PAYMENT_AMOUNT")
     private Double payment_amount;
 
+    @ManyToOne
     @Column(name = "ACCOUNT_ID")
     private String account_id;
 
@@ -119,6 +117,4 @@ public class Bill {
     public void setAccount_id(String account_id) {
         this.account_id = account_id;
     }
-
-
 }

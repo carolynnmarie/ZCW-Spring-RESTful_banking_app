@@ -19,9 +19,18 @@ public class BillService {
         this.billRepository = billRepository;
     }
 
-    public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
-        Iterable<Bill> allBillsforSpecificAccount = billRepository.findAll();
-        return new ResponseEntity<>(allBillsforSpecificAccount, HttpStatus.OK);
+    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount() {
+        Iterable<Bill> allBillsForAccount = billRepository.findAll();
+        return new ResponseEntity<>(allBillsForAccount, HttpStatus.OK);
     }
 
+    public ResponseEntity<Bill> getBillById(Long billId) {
+        Bill bill = billRepository.findOne(billId);
+        return new ResponseEntity<>(bill, HttpStatus.OK);
+    }
+
+//    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(Customer customerId) {
+//        Iterable<Bill> allBillsForCustomer = billRepository.findAll();
+//        return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
+//    }
 }
