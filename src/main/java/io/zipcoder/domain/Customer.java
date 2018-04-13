@@ -10,6 +10,7 @@ public class Customer {
     @Id
     @GeneratedValue
     @Column(name = "CUSTOMER_ID")
+    @OneToMany(mappedBy = "customer")
     private Long id;
 
     @Column(name = "FIRST_NAME")
