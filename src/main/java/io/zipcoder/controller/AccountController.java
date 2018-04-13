@@ -33,8 +33,8 @@ public class AccountController {
         return accountService.getAccountsOfCustomer(customer);
     }
 
-    @RequestMapping(value = "/customers/{customerId}/", method = RequestMethod.POST)
-    public ResponseEntity<?> createAccount(@RequestBody Account account){
+    @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
+    public ResponseEntity<?> createAccount(@PathVariable Long customerId, @RequestBody Account account){
         return accountService.createAccount(account);
     }
 
