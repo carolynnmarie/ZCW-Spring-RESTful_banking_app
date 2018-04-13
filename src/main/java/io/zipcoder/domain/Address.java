@@ -1,10 +1,9 @@
 package io.zipcoder.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class Address {
 
     @Id
@@ -26,6 +25,7 @@ public class Address {
 
     @Column(name = "ZIP")
     private String zip;
+
 
     public Long getId() {
         return id;
