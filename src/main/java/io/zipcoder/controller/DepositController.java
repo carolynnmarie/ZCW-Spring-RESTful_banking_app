@@ -22,7 +22,7 @@ public class DepositController {
 //        return depositController.getDeposit(accountId);
 //    }
 
-    @RequestMapping(value="/deposits/{depositId", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @RequestMapping(value="/deposits/{depositId}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     @ResponseBody
     public Deposit getDeposit(Long id) {
         return depositController.getDeposit(id);

@@ -17,14 +17,16 @@ public class Deposit {
     @Column(name= "TRANSACTION_DATE")
     private String transaction_date;
 
+    @Enumerated(EnumType.STRING)
     @Column(name= "STATUS")
-    private String status;
+    private TransactionStatus status;
 
     @Column(name= "PAYER_ID")
     private Long payer_id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name= "MEDIUM")
-    private String medium;
+    private Medium medium;
 
     @Column(name= "AMOUNT")
     private Double amount;
@@ -33,8 +35,8 @@ public class Deposit {
     private String description;
 
 
-    public Deposit(Long id, String type, String transaction_date, String status,
-                   Long payer_id, String medium, Double amount, String description) {
+    public Deposit(Long id, TransactionType type, String transaction_date, TransactionStatus status,
+                   Long payer_id, Medium medium, Double amount, String description) {
 
     }
 
@@ -62,11 +64,11 @@ public class Deposit {
         this.transaction_date = transaction_date;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 
@@ -78,11 +80,11 @@ public class Deposit {
         this.payer_id = payer_id;
     }
 
-    public String getMedium() {
+    public Medium getMedium() {
         return medium;
     }
 
-    public void setMedium(String medium) {
+    public void setMedium(Medium medium) {
         this.medium = medium;
     }
 
