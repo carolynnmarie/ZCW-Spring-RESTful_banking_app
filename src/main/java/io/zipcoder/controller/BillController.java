@@ -35,7 +35,7 @@ public class BillController {
         return billService.getBillById(id);
     }
 
-    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
+    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
     public ResponseEntity<Iterable<Bill>> getAllBillsForSpecificAccount(Account account) {
         return billService.getAllBillsForSpecificAccount(Account account);
     }
