@@ -24,12 +24,12 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getAccountById(@PathVariable Long id){
-        return accountService.getAccountById(id);
+    public ResponseEntity<?> getAccountById(@PathVariable Long accountId){
+        return accountService.getAccountById(accountId);
     }
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.GET)
-    public ResponseEntity<?> getAccountsForCustomer(@PathVariable Long customerId, @RequestBody Customer customer){
+    public ResponseEntity<?> getAccountsForCustomer(@PathVariable Long customerId, Customer customer){
         return accountService.getAccountsOfCustomer(customer);
     }
 

@@ -35,9 +35,9 @@ public class CustomerService {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    public ResponseEntity<Iterable<Customer>> getCustomerOfAccount(Account account){
-        Iterable<Customer> accounts = customerRepository.findCustomerOfAccount(account);
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    public ResponseEntity<Iterable<Customer>> getCustomerOfAccount(){
+        Iterable<Customer> customer = customerRepository.findAll();
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     public ResponseEntity<?> createCustomer(Customer customer){

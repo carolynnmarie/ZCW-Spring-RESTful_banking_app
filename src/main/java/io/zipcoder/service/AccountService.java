@@ -35,11 +35,12 @@ public class AccountService {
     }
 
     public ResponseEntity<?> getAccountsOfCustomer(Customer customer){
-        Iterable<Account> accounts = accountRepository.findAccountsForCustomer(customer);
+        Iterable<Account> accounts = accountRepository.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
     public ResponseEntity<?> createAccount(Account account){
+        account = accountRepository.save(account);
         URI newAccountUri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
