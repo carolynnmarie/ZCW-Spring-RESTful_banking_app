@@ -19,9 +19,9 @@ public class Customer {
     private String last_name;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CUSTOMER_ID")
-    @OrderBy
+    @Column(name= "ADDRESSES")
     private Set<Address> address;
+
 
     public Long getId() {
         return id;
