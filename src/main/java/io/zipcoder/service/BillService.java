@@ -3,9 +3,13 @@ package io.zipcoder.service;
 import io.zipcoder.domain.Bill;
 import io.zipcoder.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @Service
 public class BillService {
@@ -33,4 +37,17 @@ public class BillService {
         Iterable<Bill> allBillsForCustomer = billRepository.findAll();
         return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
     }
+
+    public ResponseEntity<?> createBill(Bill bill) {
+        URI newBillUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(bill.getId())
+                .toUri();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(newBillUri);
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+
+
 }

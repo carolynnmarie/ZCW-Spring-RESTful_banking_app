@@ -4,10 +4,7 @@ import io.zipcoder.domain.Bill;
 import io.zipcoder.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BillController {
@@ -36,16 +33,14 @@ public class BillController {
         return billService.getAllBillsForCustomer();
     }
 
-//    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-//    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Account account) {
-//        return billService.getAllBillsForAccount(Account account);
-//    }
-//
-//    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-//    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Account account) {
-//        return billService.getAllBillsForAccount(Account account);
-//    }
+    @RequestMapping(value="/accounts/{accountId}/bills", method = RequestMethod.POST)
+    public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
+        return billService.createBill(bill);
+    }
 
+//    @RequestMapping(value = "", method = RequestMethod.PUT)
+//    public ResponseEntity<?>
+//
 
 
 }
