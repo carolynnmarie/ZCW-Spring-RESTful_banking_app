@@ -30,8 +30,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/customer", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Customer>> getCustomer(@PathVariable Long accountId, @RequestBody Account account){
-        return customerService.getCustomerOfAccount(account);
+    public ResponseEntity<Iterable<Customer>> getCustomer(@PathVariable Long accountId){
+        return customerService.getCustomerOfAccount();
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
