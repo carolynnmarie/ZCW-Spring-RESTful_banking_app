@@ -39,6 +39,7 @@ public class BillService {
     }
 
     public ResponseEntity<?> createBill(Bill bill) {
+        bill = billRepository.save(bill);
         URI newBillUri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -49,5 +50,13 @@ public class BillService {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    public ResponseEntity<?> updateBill(Bill bill) {
+        Bill bill1 = billRepository.save(bill);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    public ResponseEntity<?> deleteBill(Long billId) {
+        billRepository.delete(billId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

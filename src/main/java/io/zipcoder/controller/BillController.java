@@ -38,9 +38,16 @@ public class BillController {
         return billService.createBill(bill);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.PUT)
-//    public ResponseEntity<?>
-//
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateBill(@PathVariable Long billId, @RequestBody Bill bill) {
+        return billService.updateBill(bill);
+    }
+
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
+        return billService.deleteBill(billId);
+    }
+
 
 
 }
