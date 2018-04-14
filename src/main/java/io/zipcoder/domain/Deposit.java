@@ -7,7 +7,7 @@ public class Deposit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "ID")
+    @Column(name= "DEPOSIT_ID")
     private Long id;
 
     @Enumerated(EnumType.STRING)

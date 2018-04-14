@@ -7,7 +7,7 @@ public class Withdrawal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "ID")
+    @Column(name= "WITHDRAWAL_ID")
     private Long id;
 
     @Enumerated(EnumType.STRING)

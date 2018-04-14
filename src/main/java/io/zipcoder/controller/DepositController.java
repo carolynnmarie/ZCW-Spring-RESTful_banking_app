@@ -2,11 +2,10 @@ package io.zipcoder.controller;
 
 
 import io.zipcoder.domain.Deposit;
+import io.zipcoder.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,36 +13,35 @@ import java.util.List;
 public class DepositController {
 
     @Autowired
-    DepositController depositController;
+    private DepositService depositService;
+
+    public DepositController(DepositService depositService) {
+        this.depositService = depositService;
+    }
 
     @RequestMapping(value="/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Deposit> getDepositsByAccountId(Long id) {
-        return depositController.getDepositsByAccountId(id);
+    public ResponseEntity<?> getDepositsByAccount(@PathVariable Long accountId) {
+        return depositService.getDepositsByAccount(accountId);
     }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Deposit getDeposit(Long id) {
-        return depositController.getDeposit(id);
+    public ResponseEntity<?> getDeposit(@PathVariable Long depositId) {
+        return depositService.getDeposit(depositId);
     }
 
     @RequestMapping(value="/accounts/{accountId}/deposits", method = RequestMethod.POST)
-    @ResponseBody
-    public Deposit postDeposit(Long id) {
-        return depositController.postDeposit(id);
+    public ResponseEntity<?> createDeposit(@PathVariable Long accountId, @RequestBody Deposit deposit) {
+        return depositService.createDeposit(deposit);
     }
 
-    @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.PATCH)
-    @ResponseBody
-    public Deposit updateDeposit(Long id) {
-        return depositController.updateDeposit(id);
+    @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateDeposit(@PathVariable Long depositId, @RequestBody Deposit deposit) {
+        return depositService.updateDeposit(deposit);
     }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public Deposit deleteDeposit(Long id) {
-        return depositController.deleteDeposit(id);
+    public ResponseEntity<?> deleteDeposit(@PathVariable Long depositId) {
+        return depositService.deleteDeposit(depositId);
     }
 
 }
