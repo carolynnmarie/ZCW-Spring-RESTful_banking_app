@@ -19,8 +19,8 @@ public class BillController {
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(@PathVariable Long accountId) {
-        return billService.getAllBillsForAccount(); // I don't need to pass accountId to billService method
+    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(@PathVariable("accountId") Long accountId) {
+        return billService.getAllBillsForAccount(accountId); // I don't need to pass accountId to billService method
     }
 
     @RequestMapping(value="/bills/{billId}", method= RequestMethod.GET)
