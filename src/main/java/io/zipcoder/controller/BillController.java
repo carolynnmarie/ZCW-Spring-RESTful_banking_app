@@ -31,11 +31,11 @@ public class BillController {
         return billService.getBillById(billId);
     }
 
-//    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
-//    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable Customer customerId) {
-//        return billService.getAllBillsForCustomer(customerId);
-//    }
-//
+    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
+    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable Long customerId) {
+        return billService.getAllBillsForCustomer();
+    }
+
 //    @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
 //    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Account account) {
 //        return billService.getAllBillsForAccount(Account account);

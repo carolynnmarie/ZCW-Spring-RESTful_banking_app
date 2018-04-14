@@ -29,8 +29,8 @@ public class BillService {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-//    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(Customer customerId) {
-//        Iterable<Bill> allBillsForCustomer = billRepository.findAll();
-//        return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
-//    }
+    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer() {
+        Iterable<Bill> allBillsForCustomer = billRepository.findAll();
+        return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
+    }
 }
