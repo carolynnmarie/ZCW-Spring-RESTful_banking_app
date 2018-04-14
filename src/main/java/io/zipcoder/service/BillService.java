@@ -23,8 +23,8 @@ public class BillService {
         this.billRepository = billRepository;
     }
 
-    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount() {
-        Iterable<Bill> allBillsForAccount = billRepository.findAll();
+    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Long accountId) {
+        Iterable<Bill> allBillsForAccount = billRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allBillsForAccount, HttpStatus.OK);
     }
 
