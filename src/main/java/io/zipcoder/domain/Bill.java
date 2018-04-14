@@ -39,6 +39,10 @@ public class Bill {
 //    private String account_id;
     private Account account;
 
+    public Bill() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -120,7 +124,7 @@ public class Bill {
 //    }
 
     public Account getAccount() {
-        return this.account;
+        return account;
     }
 
     public void setAccount(Account account) {
