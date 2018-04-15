@@ -1,6 +1,7 @@
 package io.zipcoder.service;
 
 import io.zipcoder.domain.Bill;
+import io.zipcoder.repository.AccountRepository;
 import io.zipcoder.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,11 +17,13 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+    private AccountRepository accountRepository;
 
     public BillService() {}
 
-    public BillService(BillRepository billRepository) {
+    public BillService(BillRepository billRepository, AccountRepository accountRepository) {
         this.billRepository = billRepository;
+        this.accountRepository = accountRepository;
     }
 
     public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Long accountId) {
@@ -29,8 +32,13 @@ public class BillService {
     }
 
     public ResponseEntity<Bill> getBillById(Long billId) {
-        Bill bill = billRepository.findOne(billId);
-        return new ResponseEntity<>(bill, HttpStatus.OK);
+        /*
+        Account account = accountRepo.findById(accountId).orElse(new Account());
+        return new ResponseEntity<>(account, OK);
+         */
+        // need to rework this.
+//        Bill bill = billRepository.findById(billId);
+//        return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
     public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer() {

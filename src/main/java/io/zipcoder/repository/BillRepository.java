@@ -10,4 +10,6 @@ public interface BillRepository extends CrudRepository<Bill, Long>{
     Iterable<Bill> findAllByAccount_Id(Long accountId);
 
     Iterable<Bill> findAllByAccount_Customer_Id(Long customerId);
+
+    Iterable<Bill> findById(Long billId);
 }

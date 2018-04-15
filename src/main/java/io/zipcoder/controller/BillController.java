@@ -24,7 +24,7 @@ public class BillController {
     }
 
     @RequestMapping(value="/bills/{billId}", method= RequestMethod.GET)
-    public ResponseEntity<?> getBillById(@PathVariable Long billId) {
+    public ResponseEntity<Bill> getBillById(@PathVariable("billId") Long billId) {
         return billService.getBillById(billId);
     }
 
