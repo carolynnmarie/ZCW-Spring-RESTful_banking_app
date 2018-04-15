@@ -38,4 +38,29 @@ public class CustomerControllerTest {
     public void setup(){
 
     }
+
+    @Test
+    public void testGetAllCustomers(){
+
+    }
+
+    @Test
+    public void testGetCustomerById(){
+
+    }
+
+    @Test
+    public void testGetCustomer(){
+
+    }
+
+    @Test
+    public void testCreateCustomer(){
+
+    }
+
+    @Test
+    public void testUpdateCustomer(){
+
+    }
 }
