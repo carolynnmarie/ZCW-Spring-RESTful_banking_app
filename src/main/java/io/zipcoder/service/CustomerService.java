@@ -16,13 +16,16 @@ import java.net.URI;
 
 @Service
 public class CustomerService {
-    @Autowired
+
     private CustomerRepository customerRepository;
+    private AccountRepository accountRepository;
 
     public CustomerService(){}
 
-    public CustomerService(CustomerRepository customerRepository){
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, AccountRepository accountRepository){
         this.customerRepository = customerRepository;
+        this.accountRepository = accountRepository;
     }
 
     public ResponseEntity<Iterable<Customer>> getAllCustomers(){
@@ -35,13 +38,14 @@ public class CustomerService {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    public ResponseEntity<Iterable<Customer>> getCustomerOfAccount(){
-        Iterable<Customer> customer = customerRepository.findAll();
+    public ResponseEntity<Customer> getCustomerOfAccount(Long accountId){
+        Account account = accountRepository.findOne(accountId);
+        Customer customer = account.getCustomer();
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     public ResponseEntity<?> createCustomer(Customer customer){
-        customer = customerRepository.save(customer);
+        Customer customer1 = customerRepository.save(customer);
         URI newAccountUri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -49,12 +53,13 @@ public class CustomerService {
                 .toUri();
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(newAccountUri);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(customer1, responseHeaders, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateCustomer(Customer customer){
+    public ResponseEntity<?> updateCustomer(Customer customer, Long customerId){
+        customer.setId(customerId);
         Customer customer1 = customerRepository.save(customer);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
 
 }

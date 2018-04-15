@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
-    @Autowired
+
     private CustomerService customerService;
 
+    @Autowired
     public CustomerController(CustomerService customerService){
         this.customerService = customerService;
     }
@@ -25,13 +26,13 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id){
         return customerService.getCustomerById(id);
     }
 
     @RequestMapping(value = "/accounts/{accountId}/customer", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Customer>> getCustomer(@PathVariable Long accountId){
-        return customerService.getCustomerOfAccount();
+    public ResponseEntity<Customer> getCustomer(@PathVariable("accountId") Long accountId){
+        return customerService.getCustomerOfAccount(accountId);
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
@@ -40,7 +41,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
-        return customerService.updateCustomer(customer);
+    public ResponseEntity<?> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
+        return customerService.updateCustomer(customer, id);
     }
 }

@@ -4,6 +4,7 @@ package io.zipcoder.service;
 import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Customer;
 import io.zipcoder.repository.AccountRepository;
+import io.zipcoder.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,13 +16,14 @@ import java.net.URI;
 
 @Service
 public class AccountService {
-    @Autowired
+
     private AccountRepository accountRepository;
+    private CustomerRepository customerRepository;
 
-    public AccountService(){}
-
-    public AccountService(AccountRepository accountRepository){
+    @Autowired
+    public AccountService(AccountRepository accountRepository, CustomerRepository customerRepository){
         this.accountRepository = accountRepository;
+        this.customerRepository = customerRepository;
     }
 
     public ResponseEntity<?> getAllAccounts(){
@@ -34,26 +36,22 @@ public class AccountService {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getAccountsOfCustomer(Customer customer){
-        Iterable<Account> accounts = accountRepository.findAll();
+    public ResponseEntity<?> getAccountsOfCustomer(Long customerId){
+        Iterable<Account> accounts = accountRepository.findAllByCustomer_Id(customerId);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createAccount(Account account){
-        account = accountRepository.save(account);
-        URI newAccountUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(account.getId())
-                .toUri();
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(newAccountUri);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    public ResponseEntity<?> createAccount(Long customerId, Account account){
+        Customer customer = customerRepository.findOne(customerId);
+        account.setCustomer(customer);
+        Account account1 = accountRepository.save(account);
+        return new ResponseEntity<>(account1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateAccount(Account account){
+    public ResponseEntity<?> updateAccount(Account account, Long accountId){
+        account.setId(accountId);
         Account account1 = accountRepository.save(account);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(account1, HttpStatus.OK);
     }
 
     public ResponseEntity<?> deleteAccount(Long accountId){
