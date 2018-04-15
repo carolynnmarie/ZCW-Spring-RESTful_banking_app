@@ -1,30 +1,26 @@
 package io.zipcoder.service;
 
-
 import io.zipcoder.domain.Deposit;
 import io.zipcoder.repository.DepositRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 
 @Service
 public class DepositService {
 
+    private DepositRepository depositRepository;
+
     @Autowired
-    DepositRepository depositRepository;
     public DepositService(DepositRepository depositRepository) {
         this.depositRepository = depositRepository;
+
     }
 
-    public DepositService(){}
-
     public ResponseEntity<Iterable<Deposit>> getDepositsByAccount(Long accountId) {
-        Iterable<Deposit> allDepositsForAccount = depositRepository.findAll();
+        Iterable<Deposit> allDepositsForAccount = depositRepository.findAllByPayee_Id(accountId);
         return new ResponseEntity<>(allDepositsForAccount, HttpStatus.OK);
     }
 
@@ -33,21 +29,16 @@ public class DepositService {
         return new ResponseEntity<>(deposit, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createDeposit(Deposit deposit) {
-        deposit = depositRepository.save(deposit);
-        URI newDepositUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(deposit.getId())
-                .toUri();
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(newDepositUri);
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    public ResponseEntity<?> createDeposit(Deposit deposit, Long accountId) {
+        deposit.setPayer_id(accountId);
+        Deposit deposit1 = depositRepository.save(deposit);
+        return new ResponseEntity<>(deposit1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateDeposit(Deposit deposit) {
+    public ResponseEntity<?> updateDeposit(Deposit deposit, Long depositId) {
+        deposit.setId(depositId);
         Deposit deposit1 = depositRepository.save(deposit);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(deposit1, HttpStatus.OK);
     }
 
     public ResponseEntity<?> deleteDeposit(Long depositId) {

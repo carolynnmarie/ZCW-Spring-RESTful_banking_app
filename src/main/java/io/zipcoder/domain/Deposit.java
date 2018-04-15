@@ -21,8 +21,8 @@ public class Deposit {
     @Column(name= "STATUS")
     private TransactionStatus status;
 
-    @Column(name= "PAYER_ID")
-    private Long payer_id;
+    @Column(name= "PAYEE_ID")
+    private Long payee_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name= "MEDIUM")
@@ -73,11 +73,11 @@ public class Deposit {
     }
 
     public Long getPayer_id() {
-        return payer_id;
+        return payee_id;
     }
 
     public void setPayer_id(Long payer_id) {
-        this.payer_id = payer_id;
+        this.payee_id = payer_id;
     }
 
     public Medium getMedium() {
@@ -111,7 +111,7 @@ public class Deposit {
                 ", type='" + type + '\'' +
                 ", transaction_date='" + transaction_date + '\'' +
                 ", status='" + status + '\'' +
-                ", payer_id=" + payer_id +
+                ", payer_id=" + payee_id +
                 ", medium='" + medium + '\'' +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
