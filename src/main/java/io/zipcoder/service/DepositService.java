@@ -21,6 +21,8 @@ public class DepositService {
         this.depositRepository = depositRepository;
     }
 
+    public DepositService(){}
+
     public ResponseEntity<Iterable<Deposit>> getDepositsByAccount(Long accountId) {
         Iterable<Deposit> allDepositsForAccount = depositRepository.findAll();
         return new ResponseEntity<>(allDepositsForAccount, HttpStatus.OK);

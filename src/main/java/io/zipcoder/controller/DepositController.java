@@ -12,9 +12,12 @@ import java.util.List;
 @RestController
 public class DepositController {
 
-    @Autowired
+
     private DepositService depositService;
 
+    public DepositController() {}
+
+    @Autowired
     public DepositController(DepositService depositService) {
         this.depositService = depositService;
     }
