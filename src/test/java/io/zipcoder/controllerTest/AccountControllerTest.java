@@ -36,7 +36,7 @@ public class AccountControllerTest {
 
     @Before
     public void setup(){
-
+        MockitoAnnotations.initMocks(this);
     }
 
 }

@@ -10,9 +10,8 @@ public class Account {
     @Column(name ="ACCOUNT_ID")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "ACCOUNT_TYPE")
-    private AccountType type;
+    private String type;
 
     @Column(name = "NICKNAME")
     private String nickname;
@@ -23,7 +22,7 @@ public class Account {
     @Column(name="BALANCE")
     private Double balance;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
@@ -35,11 +34,11 @@ public class Account {
         this.id = id;
     }
 
-    public AccountType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(AccountType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

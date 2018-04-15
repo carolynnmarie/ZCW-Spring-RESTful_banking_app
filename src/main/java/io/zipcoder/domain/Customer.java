@@ -1,6 +1,7 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,9 +19,9 @@ public class Customer {
     @Column(name="LAST_NAME")
     private String last_name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @Column(name= "ADDRESSES")
-    private Set<Address> address;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Set<Address> addresses;
 
 
     public Long getId() {
@@ -48,10 +49,10 @@ public class Customer {
     }
 
     public Set<Address> getAddress() {
-        return address;
+        return addresses;
     }
 
-    public void setAddress(Set<Address> address) {
-        this.address = address;
+    public void setAddress(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }
