@@ -39,6 +39,7 @@ public class BillService {
         // need to rework this.
 //        Bill bill = billRepository.findById(billId);
 //        return new ResponseEntity<>(bill, HttpStatus.OK);
+        return null;
     }
 
     public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer() {
