@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DepositRepository extends CrudRepository<Deposit, Long> {
 
-    Iterable<Deposit>findAllByPayee_Id(Long payeeId);
+    Iterable<Deposit>findAllByAccount_Id(Long payeeId);
 
 //    Deposit getDepositById(Long id);
 

@@ -18,7 +18,7 @@ public class WithdrawalService {
     }
 
     public ResponseEntity<Iterable<Withdrawal>> getWithdrawalsByAccount(Long accountId) {
-        Iterable<Withdrawal> allWithdrawalsForAccount = withdrawalRepository.findAllByPayer_Id(accountId);
+        Iterable<Withdrawal> allWithdrawalsForAccount = withdrawalRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allWithdrawalsForAccount, HttpStatus.OK);
     }
 

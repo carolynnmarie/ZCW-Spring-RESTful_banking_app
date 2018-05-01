@@ -1,6 +1,7 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -25,6 +26,31 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEPOSIT_ID")
+    private Set<Deposit> deposits;
+
+    public Set<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(Set<Deposit> deposits) {
+        this.deposits = deposits;
+    }
+
+    public Set<Withdrawal> getWithdrawals() {
+        return withdrawals;
+    }
+
+    public void setWithdrawals(Set<Withdrawal> withdrawals) {
+        this.withdrawals = withdrawals;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "WITHDRAWAL_ID")
+    private Set<Withdrawal> withdrawals;
+
 
     public Long getId() {
         return id;

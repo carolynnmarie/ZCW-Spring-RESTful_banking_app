@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface WithdrawalRepository extends CrudRepository<Withdrawal, Long> {
 
-    Iterable<Withdrawal>findAllByPayer_Id(Long payerId);
+    Iterable<Withdrawal>findAllByAccount_Id(Long payerId);
 
 }

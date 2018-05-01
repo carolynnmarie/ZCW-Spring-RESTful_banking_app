@@ -20,7 +20,7 @@ public class DepositService {
     }
 
     public ResponseEntity<Iterable<Deposit>> getDepositsByAccount(Long accountId) {
-        Iterable<Deposit> allDepositsForAccount = depositRepository.findAllByPayee_Id(accountId);
+        Iterable<Deposit> allDepositsForAccount = depositRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allDepositsForAccount, HttpStatus.OK);
     }
 
