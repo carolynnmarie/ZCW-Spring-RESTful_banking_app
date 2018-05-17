@@ -19,27 +19,27 @@ public class BillController {
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity<?> getAllBillsForAccount(@PathVariable("accountId") Long accountId) {
         return billService.getAllBillsForAccount(accountId);
     }
 
     @RequestMapping(value="/bills/{billId}", method= RequestMethod.GET)
-    public ResponseEntity<Bill> getBillById(@PathVariable("billId") Long billId) {
+    public ResponseEntity<?> getBillById(@PathVariable("billId") Long billId) {
         return billService.getBillById(billId);
     }
 
     @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable Long customerId) {
+    public ResponseEntity<?> getAllBillsForCustomer(@PathVariable Long customerId) {
         return billService.getAllBillsForCustomer();
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
-        return billService.createBill(bill);
+    public ResponseEntity<?> createBill(@PathVariable ("accountId") Long accountId, @RequestBody Bill bill) {
+        return billService.createBill(accountId, bill);
     }
 
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateBill(@PathVariable Long billId, @RequestBody Bill bill) {
+    public ResponseEntity<?> updateBill(@PathVariable("billId") Long billId, @RequestBody Bill bill) {
         return billService.updateBill(bill);
     }
 
