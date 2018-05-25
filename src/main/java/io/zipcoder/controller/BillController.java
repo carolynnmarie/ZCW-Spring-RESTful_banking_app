@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class BillController {
 
-    @Autowired
     private BillService billService;
 
     public BillController() {}
 
+    @Autowired
     public BillController(BillService billService) {
         this.billService = billService;
     }

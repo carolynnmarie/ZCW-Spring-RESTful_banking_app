@@ -11,9 +11,9 @@ import java.util.List;
 @RestController
 public class WithdrawalController {
 
-    @Autowired
     private WithdrawalService withdrawalService;
 
+    @Autowired
     public WithdrawalController(WithdrawalService withdrawalService)  {
         this.withdrawalService = withdrawalService;
     }
