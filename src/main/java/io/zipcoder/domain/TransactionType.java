@@ -1,5 +1,11 @@
 package io.zipcoder.domain;
 
 public enum TransactionType {
-    P2P, DEPOSIT, WITHDRAWAL
+    P2P("p2p"), DEPOSIT("deposit"), WITHDRAWAL("withdrawal");
+
+    String type;
+
+    TransactionType(String type){
+        this.type = type;
+    }
 }

@@ -22,10 +22,7 @@ public class Withdrawal {
     private TransactionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "ACCOUNT_ID")
-    private Account account;
-
-    @Column(name = "PAYER_ACCOUNT_ID")
+    @JoinColumn(name = "ACCOUNT_ID")
     private Long payer_id;
 
     @Enumerated(EnumType.STRING)
@@ -38,11 +35,11 @@ public class Withdrawal {
     @Column(name= "DESCRIPTION")
     private String description;
 
+    public Withdrawal(){}
 
-//    public Withdrawal(Long id, TransactionType type, String transaction_date, TransactionStatus status,
-//                   Long payer_id, Medium medium, Double amount, String description) {
-//
-//    }
+    public Withdrawal(Double amount){
+        this.amount = amount;
+    }
 
     public Long getId() {
         return id;
@@ -64,14 +61,6 @@ public class Withdrawal {
         return transaction_date;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public void setTransaction_date(String transaction_date) {
         this.transaction_date = transaction_date;
     }
@@ -89,7 +78,6 @@ public class Withdrawal {
     }
 
     public void setPayer_id(Long payer_id) {
-        payer_id = account.getId();
         this.payer_id = payer_id;
     }
 
@@ -119,15 +107,7 @@ public class Withdrawal {
 
     @Override
     public String toString() {
-        return "Withdrawal{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", transaction_date='" + transaction_date + '\'' +
-                ", status='" + status + '\'' +
-                ", account=" + account.getId() +
-                ", medium='" + medium + '\'' +
-                ", amount=" + amount +
-                ", description='" + description + '\'' +
-                '}';
+        return "Withdrawal{ id= " + id + ", type= " + type + ", transaction_date= " + transaction_date + ", status= " + status +
+                ", account id= " + payer_id + ", medium= " + medium  + ", amount= " + amount + ", description= " + description + "}";
     }
 }

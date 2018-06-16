@@ -1,6 +1,8 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -11,8 +13,9 @@ public class Account {
     @Column(name ="ACCOUNT_ID")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ACCOUNT_TYPE")
-    private String type;
+    private AccountType type;
 
     @Column(name = "NICKNAME")
     private String nickname;
@@ -29,27 +32,11 @@ public class Account {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPOSIT_ID")
-    private Set<Deposit> deposits;
-
-    public Set<Deposit> getDeposits() {
-        return deposits;
-    }
-
-    public void setDeposits(Set<Deposit> deposits) {
-        this.deposits = deposits;
-    }
-
-    public Set<Withdrawal> getWithdrawals() {
-        return withdrawals;
-    }
-
-    public void setWithdrawals(Set<Withdrawal> withdrawals) {
-        this.withdrawals = withdrawals;
-    }
+    private LinkedHashSet<Deposit> deposits;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WITHDRAWAL_ID")
-    private Set<Withdrawal> withdrawals;
+    private LinkedHashSet<Withdrawal> withdrawals;
 
 
     public Long getId() {
@@ -61,10 +48,10 @@ public class Account {
     }
 
     public String getType() {
-        return type;
+        return type.getType();
     }
 
-    public void setType(String type) {
+    public void setType(AccountType type) {
         this.type = type;
     }
 
@@ -99,4 +86,43 @@ public class Account {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+    public LinkedHashSet<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(LinkedHashSet<Deposit> deposits) {
+        this.deposits = deposits;
+    }
+
+    public LinkedHashSet<Withdrawal> getWithdrawals() {
+        return withdrawals;
+    }
+
+    public void setWithdrawals(LinkedHashSet<Withdrawal> withdrawals) {
+        this.withdrawals = withdrawals;
+    }
+
+
+    public Double getNewBalance(){
+        return balance + getDepositsTotal() - getWithdrawalTotal();
+    }
+
+    public Double getDepositsTotal(){
+        Double d = 0.0;
+        for(Deposit deposit: deposits){
+            d += deposit.getAmount();
+        };
+        d = Math.round(d * 100d)/100d;
+        return d;
+    }
+
+    public Double getWithdrawalTotal(){
+        Double wTotal = 0.0;
+        for(Withdrawal withdrawal: withdrawals){
+            wTotal += withdrawal.getAmount();
+        }
+        wTotal = Math.round(wTotal * 100d)/100d;
+        return wTotal;
+    }
+
 }

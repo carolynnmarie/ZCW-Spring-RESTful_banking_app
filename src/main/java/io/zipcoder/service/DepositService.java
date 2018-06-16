@@ -30,7 +30,7 @@ public class DepositService {
     }
 
     public ResponseEntity<?> createDeposit(Deposit deposit, Long accountId) {
-        deposit.setPayer_id(accountId);
+        deposit.setPayee_id(accountId);
         Deposit deposit1 = depositRepository.save(deposit);
         return new ResponseEntity<>(deposit1, HttpStatus.CREATED);
     }

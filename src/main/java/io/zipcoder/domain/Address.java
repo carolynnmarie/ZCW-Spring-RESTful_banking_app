@@ -26,6 +26,15 @@ public class Address {
     @Column(name = "ZIP")
     private String zip;
 
+    public Address(){ }
+
+    public Address(String street_number, String street_name, String city, String state, String zip){
+        this.street_number = street_number;
+        this.street_name = street_name;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
 
     public Long getId() {
         return id;

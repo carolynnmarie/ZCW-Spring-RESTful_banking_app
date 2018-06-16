@@ -36,11 +36,12 @@ public class Bill {
 
     @ManyToOne
     @JoinColumn(name = "ACCOUNT_ID")
-//    private String account_id;
     private Account account;
 
-    public Bill() {
+    public Bill() { }
 
+    public Bill(Double payment_amount){
+        this.payment_amount = payment_amount;
     }
 
     public Long getId() {
@@ -115,14 +116,6 @@ public class Bill {
         this.payment_amount = payment_amount;
     }
 
-//    public String getAccount_id() {
-//        return account_id;
-//    }
-//
-//    public void setAccount_id(String account_id) {
-//        this.account_id = account_id;
-//    }
-
     public Account getAccount() {
         return account;
     }
@@ -131,4 +124,7 @@ public class Bill {
         this.account = account;
     }
 
+    public Double getNewAccountBalance(){
+        return this.account.getBalance() - this.payment_amount;
+    }
 }

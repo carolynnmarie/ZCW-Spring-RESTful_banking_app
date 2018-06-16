@@ -23,10 +23,7 @@ public class Deposit {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "ACCOUNT_ID")
-    private Account account;
-
-    @Column(name = "PAYER_ACCOUNT_ID")
-    private Long payer_id;
+    private Long payee_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name= "MEDIUM")
@@ -38,18 +35,10 @@ public class Deposit {
     @Column(name= "DESCRIPTION")
     private String description;
 
+    public Deposit(){ }
 
-//    public Deposit(Long id, TransactionType type, String transaction_date, TransactionStatus status,
-//                   Account account, Medium medium, Double amount, String description) {
-//
-//    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
+    public Deposit(Double amount){
+        this.amount = amount;
     }
 
     public Long getId() {
@@ -71,13 +60,12 @@ public class Deposit {
     public String getTransaction_date() {
         return transaction_date;
     }
-    public Long getPayer_id() {
-        return payer_id;
+    public Long getPayee_id() {
+        return payee_id;
     }
 
-    public void setPayer_id(Long payer_id) {
-        payer_id = account.getId();
-        this.payer_id = payer_id;
+    public void setPayee_id(Long payee_id) {
+        this.payee_id = payee_id;
     }
 
     public void setTransaction_date(String transaction_date) {
@@ -118,15 +106,9 @@ public class Deposit {
 
     @Override
     public String toString() {
-        return "Deposit{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", transaction_date='" + transaction_date + '\'' +
-                ", status='" + status + '\'' +
-                ", account_id=" + account.getId() +
-                ", medium='" + medium + '\'' +
-                ", amount=" + amount +
-                ", description='" + description + '\'' +
-                '}';
+        return "Deposit{ id= " + id + ", type= " + type  + ", transaction_date= " + transaction_date + ", status= " + status +
+                ", account_id= " + payee_id + ", medium= " + medium + ", amount= " + amount + ", description= " + description + "}";
     }
+
+
 }
