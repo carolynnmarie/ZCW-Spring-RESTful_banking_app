@@ -63,5 +63,19 @@ public class AccountContIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testGetAccountByIdInt() throws Exception{ }
+
+    @Test
+    public void testGetAccountsForCustomerInt() throws Exception{}
+
+    @Test
+    public void testCreateAccountInt() throws Exception{}
+
+    @Test
+    public void testUpdateAccountInt() throws Exception{}
+
+    @Test
+    public void testDeleteAccountInt() throws Exception{}
 
 }
