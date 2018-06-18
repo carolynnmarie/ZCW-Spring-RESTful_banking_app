@@ -27,48 +27,39 @@ public class BillService {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<?> getAllBillsForAccount(Long accountId) {
+    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Long accountId) {
         Iterable<Bill> allBillsForAccount = billRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allBillsForAccount, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getBillById(Long billId) {
+    public ResponseEntity<Bill> getBillById(Long billId) {
         /*
         Account account = accountRepo.findById(accountId).orElse(new Account());
         return new ResponseEntity<>(account, OK);
          */
         // need to rework this.
-        Iterable<Bill> bill = billRepository.findById(billId);
+        Bill bill = billRepository.findOne(billId);
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getAllBillsForCustomer() {
-        Iterable<Bill> allBillsForCustomer = billRepository.findAll();
+    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(Long customerId) {
+        Iterable<Bill> allBillsForCustomer = billRepository.findAllByCustomer_Id(customerId);
         return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createBill(Long accountId, Bill bill) {
-//        bill = billRepository.save(bill);
-//        URI newBillUri = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(bill.getId())
-//                .toUri();
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.setLocation(newBillUri);
-//        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    public ResponseEntity<Bill> createBill(Long accountId, Bill bill) {
         Account account = accountRepository.findOne(accountId);
         bill.setAccount(account);
         Bill bill1 = billRepository.save(bill);
         return new ResponseEntity<>(bill1,HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateBill(Bill bill) {
+    public ResponseEntity<Bill> updateBill(Bill bill) {
         Bill bill1 = billRepository.save(bill);
         return new ResponseEntity<>(bill1, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> deleteBill(Long billId) {
+    public ResponseEntity deleteBill(Long billId) {
         billRepository.delete(billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

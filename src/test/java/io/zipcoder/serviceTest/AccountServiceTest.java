@@ -1,7 +1,7 @@
 package io.zipcoder.serviceTest;
 
+
 import io.zipcoder.domain.Customer;
-import io.zipcoder.domain.Deposit;
 import io.zipcoder.repository.AccountRepository;
 import io.zipcoder.repository.CustomerRepository;
 import io.zipcoder.service.AccountService;
@@ -13,74 +13,105 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static java.util.Collections.singletonList;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+
+@RunWith(SpringRunner.class)
 public class AccountServiceTest {
-
-    private Account account;
-    private Customer customer;
-
-    @Mock
-    private AccountRepository mockAccountRepo;
-    private CustomerRepository mockCustomerRepo;
 
     @InjectMocks
     private AccountService mockService;
 
+    @Mock
+    private AccountRepository mockAccountRepo;
+
+    @Mock
+    private CustomerRepository mockCustomerRepo;
+
+    private Account account;
+    private Customer customer;
+
     @Before
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
+        customer = new Customer("Carolynn", "Vansant");
+        account = new Account();
+        account.setCustomer(customer);
+        account.setId(1L);
+        customer.setId(2L);
     }
 
     @Test
     public void testGetAllAccounts(){
-        this.account = new Account();
-        ArrayList<Account> list = new ArrayList<>(Arrays.asList(account));
-        Iterator<Account> iterator = list.iterator();
-        ResponseEntity<Iterator<Account>> entity = new ResponseEntity<>(iterator, HttpStatus.OK);
-        doReturn(account,HttpStatus.OK).when(mockAccountRepo.findAll());
-        Assert.assertEquals(entity,mockService.getAllAccounts());
+       Iterable<Account> accounts = singletonList(account);
+       given(mockAccountRepo.findAll()).willReturn(accounts);
+
+       ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
+       ResponseEntity<Iterable<Account>> actual = mockService.getAllAccounts();
+
+       verify(mockAccountRepo).findAll();
+       Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testGetAccountById(){
-        this.account = new Account();
-        ResponseEntity<Account> entity = new ResponseEntity<>(account, HttpStatus.OK);
-        doReturn(account,HttpStatus.OK).when(mockAccountRepo.findOne((long)1));
-        Assert.assertEquals(entity,mockService.getAllAccounts());
+        given(mockAccountRepo.findOne(1L)).willReturn(account);
+
+        ResponseEntity<Account> expected = new ResponseEntity<>(account, HttpStatus.OK);
+        ResponseEntity<Account> actual = mockService.getAccountById(1L);
+
+        verify(mockAccountRepo).findOne(anyLong());
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testGetAccountsOfCustomer(){
+        Iterable<Account> accounts = singletonList(account);
+        given(mockAccountRepo.findAllByCustomer_Id(2L)).willReturn(accounts);
 
+        ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
+        ResponseEntity<Iterable<Account>> actual = mockService.getAccountsOfCustomer(2L);
+
+        verify(mockAccountRepo).findAllByCustomer_Id(anyLong());
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testCreateAccount(){
+        given(mockCustomerRepo.findOne(anyLong())).willReturn(account.getCustomer());
+        given(mockAccountRepo.save(any(Account.class))).willReturn(account);
 
+        ResponseEntity<Account> expected = new ResponseEntity(account, HttpStatus.CREATED);
+        ResponseEntity<Account> actual = mockService.createAccount(account.getCustomer().getId(), account);
+
+        verify(mockAccountRepo).save(any(Account.class));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testUpdateAccount(){
+        given(mockAccountRepo.save(any(Account.class))).willReturn(account);
 
+        ResponseEntity<Account> expected = new ResponseEntity<>(account, HttpStatus.OK);
+        ResponseEntity<Account> actual = mockService.updateAccount(1L, account);
+
+        verify(mockAccountRepo).save(any(Account.class));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testDeleteAccount(){
+        ResponseEntity<Account> expected = new ResponseEntity<>(HttpStatus.OK);
+        ResponseEntity<Account> actual = mockService.deleteAccount(1L);
 
+        verify(mockAccountRepo).delete(anyLong());
+        Assert.assertEquals(expected, actual);
     }
 }

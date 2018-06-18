@@ -6,13 +6,14 @@ import io.zipcoder.domain.Customer;
 import io.zipcoder.repository.AccountRepository;
 import io.zipcoder.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import java.net.URI;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Service
 public class AccountService {
@@ -42,19 +43,23 @@ public class AccountService {
     }
 
     public ResponseEntity<Account> createAccount(Long customerId, Account account){
-        Customer customer = customerRepository.findOne(customerId);
-        account.setCustomer(customer);
-        Account account1 = accountRepository.save(account);
-        return new ResponseEntity<>(account1, HttpStatus.CREATED);
+        try {
+            Customer customer = customerRepository.findOne(customerId);
+            account.setCustomer(customer);
+            Account account1 = accountRepository.save(account);
+            return new ResponseEntity<>(account1, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(new Account(), BAD_REQUEST);
+        }
     }
 
-    public ResponseEntity<Account> updateAccount(Account account, Long accountId){
+    public ResponseEntity<Account> updateAccount(Long accountId, Account account){
         account.setId(accountId);
         Account account1 = accountRepository.save(account);
         return new ResponseEntity<>(account1, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> deleteAccount(Long accountId){
+    public ResponseEntity deleteAccount(Long accountId){
         accountRepository.delete(accountId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

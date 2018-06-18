@@ -36,12 +36,12 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
         return customerService.createCustomer(customer);
     }
 
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
         return customerService.updateCustomer(customer, id);
     }
 }

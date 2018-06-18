@@ -29,19 +29,19 @@ public class DepositService {
         return new ResponseEntity<>(deposit, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createDeposit(Deposit deposit, Long accountId) {
+    public ResponseEntity<Deposit> createDeposit(Deposit deposit, Long accountId) {
         deposit.setPayee_id(accountId);
         Deposit deposit1 = depositRepository.save(deposit);
         return new ResponseEntity<>(deposit1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateDeposit(Deposit deposit, Long depositId) {
+    public ResponseEntity<Deposit> updateDeposit(Deposit deposit, Long depositId) {
         deposit.setId(depositId);
         Deposit deposit1 = depositRepository.save(deposit);
         return new ResponseEntity<>(deposit1, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> deleteDeposit(Long depositId) {
+    public ResponseEntity deleteDeposit(Long depositId) {
         depositRepository.delete(depositId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

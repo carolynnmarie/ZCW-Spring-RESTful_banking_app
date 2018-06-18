@@ -27,19 +27,19 @@ public class WithdrawalService {
         return new ResponseEntity<>(withdrawal, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createWithdrawal(Withdrawal withdrawal, Long accountId) {
+    public ResponseEntity<Withdrawal> createWithdrawal(Withdrawal withdrawal, Long accountId) {
         withdrawal.setPayer_id(accountId);
         Withdrawal withdrawal1 = withdrawalRepository.save(withdrawal);
         return new ResponseEntity<>(withdrawal1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
+    public ResponseEntity<Withdrawal> updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
         withdrawal.setId(withdrawalId);
         Withdrawal withdrawal1 = withdrawalRepository.save(withdrawal);
         return new ResponseEntity<>(withdrawal1,HttpStatus.OK);
     }
 
-    public ResponseEntity<?> deleteWithdrawal(Long withdrawalId) {
+    public ResponseEntity deleteWithdrawal(Long withdrawalId) {
         withdrawalRepository.delete(withdrawalId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

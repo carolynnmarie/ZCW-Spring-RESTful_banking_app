@@ -44,7 +44,7 @@ public class CustomerService {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createCustomer(Customer customer){
+    public ResponseEntity<Customer> createCustomer(Customer customer){
         Customer customer1 = customerRepository.save(customer);
         URI newAccountUri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -56,7 +56,7 @@ public class CustomerService {
         return new ResponseEntity<>(customer1, responseHeaders, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateCustomer(Customer customer, Long customerId){
+    public ResponseEntity<Customer> updateCustomer(Customer customer, Long customerId){
         customer.setId(customerId);
         Customer customer1 = customerRepository.save(customer);
         return new ResponseEntity<>(customer1, HttpStatus.OK);

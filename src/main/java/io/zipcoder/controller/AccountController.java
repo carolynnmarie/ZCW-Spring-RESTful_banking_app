@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 public class AccountController {
 
@@ -41,11 +40,11 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.PUT)
     public ResponseEntity<Account> updateAccount(@PathVariable("accountId") Long accountId, @RequestBody Account account){
-        return accountService.updateAccount(account, accountId);
+        return accountService.updateAccount(accountId, account);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteAccount(@PathVariable("accountId") Long accountId){
+    public ResponseEntity deleteAccount(@PathVariable("accountId") Long accountId){
         return accountService.deleteAccount(accountId);
     }
 }
