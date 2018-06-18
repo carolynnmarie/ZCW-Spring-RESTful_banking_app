@@ -26,29 +26,29 @@ public class AccountService {
         this.customerRepository = customerRepository;
     }
 
-    public ResponseEntity<?> getAllAccounts(){
+    public ResponseEntity<Iterable<Account>> getAllAccounts(){
         Iterable<Account> accounts = accountRepository.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getAccountById(Long id){
+    public ResponseEntity<Account> getAccountById(Long id){
         Account account = accountRepository.findOne(id);
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getAccountsOfCustomer(Long customerId){
+    public ResponseEntity<Iterable<Account>> getAccountsOfCustomer(Long customerId){
         Iterable<Account> accounts = accountRepository.findAllByCustomer_Id(customerId);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createAccount(Long customerId, Account account){
+    public ResponseEntity<Account> createAccount(Long customerId, Account account){
         Customer customer = customerRepository.findOne(customerId);
         account.setCustomer(customer);
         Account account1 = accountRepository.save(account);
         return new ResponseEntity<>(account1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateAccount(Account account, Long accountId){
+    public ResponseEntity<Account> updateAccount(Account account, Long accountId){
         account.setId(accountId);
         Account account1 = accountRepository.save(account);
         return new ResponseEntity<>(account1, HttpStatus.OK);

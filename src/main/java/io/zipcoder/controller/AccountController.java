@@ -20,27 +20,27 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllAccounts(){
+    public ResponseEntity<Iterable<Account>> getAllAccounts(){
         return accountService.getAllAccounts();
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getAccountById(@PathVariable("accountId") Long accountId){
+    public ResponseEntity<Account> getAccountById(@PathVariable("accountId") Long accountId){
         return accountService.getAccountById(accountId);
     }
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.GET)
-    public ResponseEntity<?> getAccountsForCustomer(@PathVariable("customerId") Long customerId){
+    public ResponseEntity<Iterable<Account>> getAccountsForCustomer(@PathVariable("customerId") Long customerId){
         return accountService.getAccountsOfCustomer(customerId);
     }
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
-    public ResponseEntity<?> createAccount(@PathVariable ("customerId") Long customerId, @RequestBody Account account){
+    public ResponseEntity<Account> createAccount(@PathVariable ("customerId") Long customerId, @RequestBody Account account){
         return accountService.createAccount(customerId, account);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAccount(@PathVariable("accountId") Long accountId, @RequestBody Account account){
+    public ResponseEntity<Account> updateAccount(@PathVariable("accountId") Long accountId, @RequestBody Account account){
         return accountService.updateAccount(account, accountId);
     }
 
