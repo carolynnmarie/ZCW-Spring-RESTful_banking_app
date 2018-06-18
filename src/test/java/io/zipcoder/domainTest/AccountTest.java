@@ -20,7 +20,7 @@ public class AccountTest {
 
     @Test
     public void getTypeTest(){
-        account.setType(AccountType.CHECKING);
+        account.setType("checking");
         String expected = "checking";
         String actual = account.getType();
         Assert.assertEquals(expected, actual);
@@ -59,22 +59,6 @@ public class AccountTest {
         String actual = account.getCustomer().getFirst_name();
         Assert.assertEquals(expected, actual);
     }
-
-    @Test
-    public void getNewBalanceTest(){
-        Deposit deposit1 = new Deposit(100.40);
-        Deposit deposit2 = new Deposit(2000.61);
-        Withdrawal withdrawal = new Withdrawal(200.58);
-        account.setDeposits(new LinkedHashSet<>(Arrays.asList(deposit1, deposit2)));
-        account.setWithdrawals(new LinkedHashSet<>(Arrays.asList(withdrawal)));
-        account.setBalance(20000.57);
-
-        Double expected = 21901.00;
-        Double actual = account.getNewBalance();
-
-        Assert.assertEquals(expected, actual);
-    }
-
 
 
 }

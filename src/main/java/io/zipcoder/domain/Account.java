@@ -13,9 +13,8 @@ public class Account {
     @Column(name ="ACCOUNT_ID")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "ACCOUNT_TYPE")
-    private AccountType type;
+    private String type;
 
     @Column(name = "NICKNAME")
     private String nickname;
@@ -48,10 +47,10 @@ public class Account {
     }
 
     public String getType() {
-        return type.getType();
+        return type;
     }
 
-    public void setType(AccountType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -71,25 +70,23 @@ public class Account {
         this.rewards = rewards;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
     public void setBalance(Double balance) {
         this.balance = balance;
     }
-
-    public Customer getCustomer() {
-        return customer;
+    public Double getBalance() {
+        return balance;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+    public Customer getCustomer() {
+        return customer;
+    }
+
     public LinkedHashSet<Deposit> getDeposits() {
         return deposits;
     }
-
     public void setDeposits(LinkedHashSet<Deposit> deposits) {
         this.deposits = deposits;
     }
@@ -97,32 +94,9 @@ public class Account {
     public LinkedHashSet<Withdrawal> getWithdrawals() {
         return withdrawals;
     }
-
     public void setWithdrawals(LinkedHashSet<Withdrawal> withdrawals) {
         this.withdrawals = withdrawals;
     }
 
-
-    public Double getNewBalance(){
-        return balance + getDepositsTotal() - getWithdrawalTotal();
-    }
-
-    public Double getDepositsTotal(){
-        Double d = 0.0;
-        for(Deposit deposit: deposits){
-            d += deposit.getAmount();
-        };
-        d = Math.round(d * 100d)/100d;
-        return d;
-    }
-
-    public Double getWithdrawalTotal(){
-        Double wTotal = 0.0;
-        for(Withdrawal withdrawal: withdrawals){
-            wTotal += withdrawal.getAmount();
-        }
-        wTotal = Math.round(wTotal * 100d)/100d;
-        return wTotal;
-    }
 
 }
