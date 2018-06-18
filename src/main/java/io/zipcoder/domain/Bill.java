@@ -26,7 +26,7 @@ public class Bill {
     private String payment_date;
 
     @Column(name = "RECURRING_DATE")
-    private Integer recurring_date;
+    private String recurring_date;
 
     @Column(name = "UPCOMING_PAYMENT_DATE")
     private String upcoming_payment_date;
@@ -92,11 +92,11 @@ public class Bill {
         this.payment_date = payment_date;
     }
 
-    public Integer getRecurring_date() {
+    public String getRecurring_date() {
         return recurring_date;
     }
 
-    public void setRecurring_date(Integer recurring_date) {
+    public void setRecurring_date(String recurring_date) {
         this.recurring_date = recurring_date;
     }
 

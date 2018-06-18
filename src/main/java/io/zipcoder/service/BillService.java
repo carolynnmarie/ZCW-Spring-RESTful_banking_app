@@ -33,11 +33,6 @@ public class BillService {
     }
 
     public ResponseEntity<Bill> getBillById(Long billId) {
-        /*
-        Account account = accountRepo.findById(accountId).orElse(new Account());
-        return new ResponseEntity<>(account, OK);
-         */
-        // need to rework this.
         Bill bill = billRepository.findOne(billId);
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
