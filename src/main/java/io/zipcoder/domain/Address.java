@@ -26,6 +26,10 @@ public class Address {
     @Column(name = "ZIP")
     private String zip;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ADDRESS_ID")
+//    private Customer customer;
+
     public Address(){ }
 
     public Address(String street_number, String street_name, String city, String state, String zip){
@@ -83,4 +87,13 @@ public class Address {
     public void setZip(String zip) {
         this.zip = zip;
     }
+
+//
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 }

@@ -29,13 +29,6 @@ public class Account {
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEPOSIT_ID")
-    private LinkedHashSet<Deposit> deposits;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "WITHDRAWAL_ID")
-    private LinkedHashSet<Withdrawal> withdrawals;
 
 
     public Long getId() {
@@ -84,19 +77,19 @@ public class Account {
         return customer;
     }
 
-    public LinkedHashSet<Deposit> getDeposits() {
-        return deposits;
-    }
-    public void setDeposits(LinkedHashSet<Deposit> deposits) {
-        this.deposits = deposits;
-    }
-
-    public LinkedHashSet<Withdrawal> getWithdrawals() {
-        return withdrawals;
-    }
-    public void setWithdrawals(LinkedHashSet<Withdrawal> withdrawals) {
-        this.withdrawals = withdrawals;
-    }
+//    public LinkedHashSet<Deposit> getDeposits() {
+//        return deposits;
+//    }
+//    public void setDeposits(LinkedHashSet<Deposit> deposits) {
+//        this.deposits = deposits;
+//    }
+//
+//    public LinkedHashSet<Withdrawal> getWithdrawals() {
+//        return withdrawals;
+//    }
+//    public void setWithdrawals(LinkedHashSet<Withdrawal> withdrawals) {
+//        this.withdrawals = withdrawals;
+//    }
 
 
 }

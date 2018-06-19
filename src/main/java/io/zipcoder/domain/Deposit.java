@@ -23,7 +23,7 @@ public class Deposit {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "ACCOUNT_ID")
-    private Long payee_id;
+    private Account account;
 
     @Enumerated(EnumType.STRING)
     @Column(name= "MEDIUM")
@@ -59,13 +59,6 @@ public class Deposit {
 
     public String getTransaction_date() {
         return transaction_date;
-    }
-    public Long getPayee_id() {
-        return payee_id;
-    }
-
-    public void setPayee_id(Long payee_id) {
-        this.payee_id = payee_id;
     }
 
     public void setTransaction_date(String transaction_date) {
@@ -104,11 +97,11 @@ public class Deposit {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Deposit{ id= " + id + ", type= " + type  + ", transaction_date= " + transaction_date + ", status= " + status +
-                ", account_id= " + payee_id + ", medium= " + medium + ", amount= " + amount + ", description= " + description + "}";
+    public Account getAccount() {
+        return account;
     }
 
-
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

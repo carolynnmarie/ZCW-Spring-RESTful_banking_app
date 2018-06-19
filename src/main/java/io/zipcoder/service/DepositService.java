@@ -1,5 +1,6 @@
 package io.zipcoder.service;
 
+import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Deposit;
 import io.zipcoder.repository.DepositRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Service;
 public class DepositService {
 
     private DepositRepository depositRepository;
+    private Account account;
 
     @Autowired
     public DepositService(DepositRepository depositRepository) {
         this.depositRepository = depositRepository;
+        this.account = new Account();
 
     }
 
@@ -30,7 +33,8 @@ public class DepositService {
     }
 
     public ResponseEntity<Deposit> createDeposit(Deposit deposit, Long accountId) {
-        deposit.setPayee_id(accountId);
+        deposit.setAccount(account);
+        deposit.getAccount().setId(accountId);
         Deposit deposit1 = depositRepository.save(deposit);
         return new ResponseEntity<>(deposit1, HttpStatus.CREATED);
     }

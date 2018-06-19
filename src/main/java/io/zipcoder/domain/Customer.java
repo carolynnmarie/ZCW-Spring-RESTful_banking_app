@@ -1,6 +1,7 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")
-    private LinkedHashSet<Address> addresses;
+    private Set<Address> addresses;
 
     public Customer(){}
 
@@ -55,11 +56,11 @@ public class Customer {
         this.last_name = last_name;
     }
 
-    public LinkedHashSet<Address> getAddress() {
+    public Set<Address> getAddress() {
         return addresses;
     }
 
-    public void setAddress(LinkedHashSet<Address> addresses) {
+    public void setAddress(Set<Address> addresses) {
         this.addresses = addresses;
     }
 }

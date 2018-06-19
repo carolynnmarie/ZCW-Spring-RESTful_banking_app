@@ -23,7 +23,7 @@ public class Withdrawal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID")
-    private Long payer_id;
+    private Account account;
 
     @Enumerated(EnumType.STRING)
     @Column(name= "MEDIUM")
@@ -73,14 +73,6 @@ public class Withdrawal {
         this.status = status;
     }
 
-    public Long getPayer_id() {
-        return payer_id;
-    }
-
-    public void setPayer_id(Long payer_id) {
-        this.payer_id = payer_id;
-    }
-
     public Medium getMedium() {
         return medium;
     }
@@ -105,9 +97,12 @@ public class Withdrawal {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Withdrawal{ id= " + id + ", type= " + type + ", transaction_date= " + transaction_date + ", status= " + status +
-                ", account id= " + payer_id + ", medium= " + medium  + ", amount= " + amount + ", description= " + description + "}";
+    public Account getAccount() {
+        return account;
     }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
 }

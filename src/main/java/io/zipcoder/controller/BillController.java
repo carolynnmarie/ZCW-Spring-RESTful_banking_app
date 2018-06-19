@@ -28,9 +28,9 @@ public class BillController {
         return billService.getBillById(billId);
     }
 
-    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable("customerId") Long customerId) {
-        return billService.getAllBillsForCustomer(customerId);
+    @RequestMapping(value="/customers/{customerId}/accounts/{accountId}/bills", method= RequestMethod.GET)
+    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable("customerId") Long customerId, @PathVariable("accountId") Long accountId) {
+        return billService.getAllBillsForCustomer(customerId, accountId);
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method = RequestMethod.POST)

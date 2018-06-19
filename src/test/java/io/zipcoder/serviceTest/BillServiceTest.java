@@ -76,20 +76,42 @@ public class BillServiceTest {
     public void testGetBillsForCustomer(){
         Iterable<Bill> bills = singletonList(bill);
         ResponseEntity<Iterable<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
-        given(billRepository.findAllByCustomer_Id(3L)).willReturn(bills);
-        ResponseEntity<Iterable<Bill>> actual = billService.getAllBillsForCustomer(3L);
+        given(billRepository.findAllByCustomer_Id(3L, 2L)).willReturn(bills);
+        ResponseEntity<Iterable<Bill>> actual = billService.getAllBillsForCustomer(3L, 2L);
 
-        verify(billRepository).findAllByCustomer_Id(anyLong());
+        verify(billRepository).findAllByCustomer_Id(anyLong(), anyLong());
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void testCreateBill(){}
+    public void testCreateBill(){
+        given(accountRepository.findOne(anyLong())).willReturn(bill.getAccount());
+        given(billRepository.save(any(Bill.class))).willReturn(bill);
+        ResponseEntity<Bill> expected = new ResponseEntity<>(bill, HttpStatus.CREATED);
+        ResponseEntity<Bill> actual = billService.createBill(2L, bill);
+
+        verify(billRepository).save(any(Bill.class));
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
-    public void testUpdateBill(){}
+    public void testUpdateBill(){
+        given(billRepository.save(any(Bill.class))).willReturn(bill);
+
+        ResponseEntity<Bill> expected = new ResponseEntity<>(bill, HttpStatus.OK);
+        ResponseEntity<Bill> actual = billService.updateBill(bill);
+
+        verify(billRepository).save(any(Bill.class));
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
-    public void testDeleteBill(){}
+    public void testDeleteBill(){
+        ResponseEntity expected = new ResponseEntity(HttpStatus.OK);
+        ResponseEntity actual = billService.deleteBill(1L);
+
+        verify(billRepository).delete(anyLong());
+        Assert.assertEquals(expected, actual);
+    }
 
 }

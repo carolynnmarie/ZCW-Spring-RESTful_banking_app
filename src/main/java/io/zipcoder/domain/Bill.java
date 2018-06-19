@@ -38,6 +38,10 @@ public class Bill {
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(name="CUSTOMER_ID")
+    private Customer customer;
+
     public Bill() { }
 
     public Bill(Double payment_amount){
@@ -124,7 +128,7 @@ public class Bill {
         this.account = account;
     }
 
-    public Double getNewAccountBalance(){
-        return this.account.getBalance() - this.payment_amount;
-    }
+ //   public Double getNewAccountBalance(){
+//        return this.account.getBalance() - this.payment_amount;
+//    }
 }

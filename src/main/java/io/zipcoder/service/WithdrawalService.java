@@ -1,5 +1,6 @@
 package io.zipcoder.service;
 
+import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Withdrawal;
 import io.zipcoder.repository.WithdrawalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Service;
 public class WithdrawalService {
 
     private WithdrawalRepository withdrawalRepository;
+    private Account account;
 
     @Autowired
     public WithdrawalService(WithdrawalRepository withdrawalRepository) {
         this.withdrawalRepository = withdrawalRepository;
+        this.account = new Account();
     }
 
     public ResponseEntity<Iterable<Withdrawal>> getWithdrawalsByAccount(Long accountId) {
@@ -28,7 +31,8 @@ public class WithdrawalService {
     }
 
     public ResponseEntity<Withdrawal> createWithdrawal(Withdrawal withdrawal, Long accountId) {
-        withdrawal.setPayer_id(accountId);
+        withdrawal.setAccount(account);
+        withdrawal.getAccount().setId(accountId);
         Withdrawal withdrawal1 = withdrawalRepository.save(withdrawal);
         return new ResponseEntity<>(withdrawal1, HttpStatus.CREATED);
     }
