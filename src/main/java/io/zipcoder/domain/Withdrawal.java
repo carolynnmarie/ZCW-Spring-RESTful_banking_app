@@ -12,14 +12,14 @@ public class Withdrawal {
 
     @Enumerated(EnumType.STRING)
     @Column(name= "TYPE")
-    private TransactionType type;
+    private TransactionType transactionType;
 
     @Column(name= "TRANSACTION_DATE")
     private String transaction_date;
 
     @Enumerated(EnumType.STRING)
     @Column(name= "STATUS")
-    private TransactionStatus status;
+    private TransactionStatus transactionStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -49,12 +49,12 @@ public class Withdrawal {
         this.id = id;
     }
 
-    public TransactionType getType() {
-        return type;
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public String getTransaction_date() {
@@ -65,12 +65,12 @@ public class Withdrawal {
         this.transaction_date = transaction_date;
     }
 
-    public TransactionStatus getStatus() {
-        return status;
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
     }
 
-    public void setStatus(TransactionStatus status) {
-        this.status = status;
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
     }
 
     public Medium getMedium() {

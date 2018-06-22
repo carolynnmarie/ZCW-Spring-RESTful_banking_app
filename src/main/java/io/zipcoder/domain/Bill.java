@@ -127,8 +127,4 @@ public class Bill {
     public void setAccount(Account account) {
         this.account = account;
     }
-
- //   public Double getNewAccountBalance(){
-//        return this.account.getBalance() - this.payment_amount;
-//    }
 }

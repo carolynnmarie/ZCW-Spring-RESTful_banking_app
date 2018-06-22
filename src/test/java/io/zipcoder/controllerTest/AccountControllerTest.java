@@ -26,7 +26,6 @@ import static org.mockito.Mockito.verify;
 @RunWith(SpringRunner.class)
 public class AccountControllerTest {
 
-
     @Mock
     private AccountService mockAccountService;
 
@@ -60,11 +59,11 @@ public class AccountControllerTest {
 
     @Test
     public void testGetAccountById(){
-        given(mockAccountService.getAccountById(1L)).willReturn(new ResponseEntity<Account>(account, HttpStatus.OK));
+        given(mockAccountService.getAccountById(account.getId())).willReturn(new ResponseEntity<Account>(account, HttpStatus.OK));
         ResponseEntity<Account> expected = new ResponseEntity<>(account, HttpStatus.OK);
-        ResponseEntity<Account> actual = mockAccountController.getAccountById(1L);
+        ResponseEntity<Account> actual = mockAccountController.getAccountById(account.getId());
 
-        verify(mockAccountService).getAccountById(1L);
+        verify(mockAccountService).getAccountById(anyLong());
         Assert.assertEquals(expected, actual);
     }
 
@@ -72,8 +71,8 @@ public class AccountControllerTest {
     public void testGetAccountsForCustomer(){
         Iterable<Account> iterable = singletonList(account);
         ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(iterable, HttpStatus.OK);
-        given(mockAccountService.getAccountsOfCustomer(2L)).willReturn(expected);
-        ResponseEntity<Iterable<Account>> actual = mockAccountController.getAccountsForCustomer(2L);
+        given(mockAccountService.getAccountsOfCustomer(account.getCustomer().getId())).willReturn(expected);
+        ResponseEntity<Iterable<Account>> actual = mockAccountController.getAccountsForCustomer(account.getCustomer().getId());
 
         verify(mockAccountService).getAccountsOfCustomer(anyLong());
         Assert.assertEquals(expected, actual);
@@ -82,8 +81,8 @@ public class AccountControllerTest {
     @Test
     public void testCreateAccount(){
         ResponseEntity<Account> expected = new ResponseEntity<>(account, HttpStatus.CREATED);
-        given(mockAccountService.createAccount(2L, account)).willReturn(expected);
-        ResponseEntity<Account> actual = mockAccountController.createAccount(2L, account);
+        given(mockAccountService.createAccount(account.getCustomer().getId(), account)).willReturn(expected);
+        ResponseEntity<Account> actual = mockAccountController.createAccount(account.getCustomer().getId(), account);
 
         verify(mockAccountService).createAccount(anyLong(), any(Account.class));
         Assert.assertEquals(expected, actual);
