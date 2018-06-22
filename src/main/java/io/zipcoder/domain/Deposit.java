@@ -49,11 +49,11 @@ public class Deposit {
         this.id = id;
     }
 
-    public TransactionType getType() {
+    public TransactionType getTransactionType() {
         return type;
     }
 
-    public void setType(TransactionType type) {
+    public void setTransactionType(TransactionType type) {
         this.type = type;
     }
 
@@ -65,11 +65,11 @@ public class Deposit {
         this.transaction_date = transaction_date;
     }
 
-    public TransactionStatus getStatus() {
+    public TransactionStatus getTransactionStatus() {
         return status;
     }
 
-    public void setStatus(TransactionStatus status) {
+    public void setTransactionStatus(TransactionStatus status) {
         this.status = status;
     }
 

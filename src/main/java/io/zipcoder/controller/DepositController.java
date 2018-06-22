@@ -31,12 +31,12 @@ public class DepositController {
 
     @RequestMapping(value="/accounts/{accountId}/deposits", method = RequestMethod.POST)
     public ResponseEntity<Deposit> createDeposit(@PathVariable("accountId") Long accountId, @RequestBody Deposit deposit) {
-        return depositService.createDeposit(deposit, accountId);
+        return depositService.createDeposit(accountId, deposit);
     }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.PUT)
     public ResponseEntity<Deposit> updateDeposit(@PathVariable("depositId") Long depositId, @RequestBody Deposit deposit) {
-        return depositService.updateDeposit(deposit, depositId);
+        return depositService.updateDeposit(depositId, deposit);
     }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.DELETE)

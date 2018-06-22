@@ -30,12 +30,12 @@ public class WithdrawalController {
 
     @RequestMapping(value="/accounts/{accountId}/withdrawals", method = RequestMethod.POST)
     public ResponseEntity<Withdrawal> createWithdrawal(@PathVariable("accountId") Long accountId, @RequestBody Withdrawal withdrawal) {
-        return withdrawalService.createWithdrawal(withdrawal, accountId);
+        return withdrawalService.createWithdrawal(accountId, withdrawal);
     }
 
     @RequestMapping(value="/withdrawals/{withdrawalId}" , method = RequestMethod.PUT)
     public ResponseEntity<Withdrawal> updateWithdrawal(@PathVariable("withdrawalId") Long withdrawalId, @RequestBody Withdrawal withdrawal) {
-        return withdrawalService.updateWithdrawal(withdrawal, withdrawalId);
+        return withdrawalService.updateWithdrawal(withdrawalId, withdrawal);
     }
 
     @RequestMapping(value="/withdrawals/{withdrawalId}", method = RequestMethod.DELETE)

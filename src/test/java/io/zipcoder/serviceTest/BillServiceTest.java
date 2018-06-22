@@ -99,7 +99,7 @@ public class BillServiceTest {
         given(billRepository.save(any(Bill.class))).willReturn(bill);
 
         ResponseEntity<Bill> expected = new ResponseEntity<>(bill, HttpStatus.OK);
-        ResponseEntity<Bill> actual = billService.updateBill(bill);
+        ResponseEntity<Bill> actual = billService.updateBill(1L,bill);
 
         verify(billRepository).save(any(Bill.class));
         Assert.assertEquals(expected, actual);

@@ -8,4 +8,9 @@ public enum TransactionStatus {
     TransactionStatus(String status){
         this.status = status;
     }
+
+
+    public String getStatus(){
+        return this.status;
+    }
 }

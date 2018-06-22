@@ -30,14 +30,14 @@ public class WithdrawalService {
         return new ResponseEntity<>(withdrawal, HttpStatus.OK);
     }
 
-    public ResponseEntity<Withdrawal> createWithdrawal(Withdrawal withdrawal, Long accountId) {
+    public ResponseEntity<Withdrawal> createWithdrawal(Long accountId, Withdrawal withdrawal) {
         withdrawal.setAccount(account);
         withdrawal.getAccount().setId(accountId);
         Withdrawal withdrawal1 = withdrawalRepository.save(withdrawal);
         return new ResponseEntity<>(withdrawal1, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Withdrawal> updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
+    public ResponseEntity<Withdrawal> updateWithdrawal(Long withdrawalId, Withdrawal withdrawal) {
         withdrawal.setId(withdrawalId);
         Withdrawal withdrawal1 = withdrawalRepository.save(withdrawal);
         return new ResponseEntity<>(withdrawal1,HttpStatus.OK);

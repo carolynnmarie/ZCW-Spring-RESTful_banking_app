@@ -50,6 +50,7 @@ public class AccountContIntegrationTest {
         account = new Account();
         account.setId(1L);
         account.setCustomer(customer);
+        account.setBalance(101.11);
     }
 
     @Test
@@ -64,13 +65,36 @@ public class AccountContIntegrationTest {
     }
 
     @Test
-    public void testGetAccountByIdInt() throws Exception{ }
+    public void testGetAccountByIdInt() throws Exception{
+        ResponseEntity<Account> entity =  new ResponseEntity<>(account, HttpStatus.OK);
+        given(accountController.getAccountById(1L)).willReturn(entity);
+
+        mockMvc.perform(get("/accounts/{accountId}", 1L)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @Test
-    public void testGetAccountsForCustomerInt() throws Exception{}
+    public void testGetAccountsForCustomerInt() throws Exception{
+        Iterable<Account> accounts = singletonList(account);
+        ResponseEntity<Iterable<Account>> entity = new ResponseEntity<>(accounts, HttpStatus.OK);
+        given(accountController.getAccountsForCustomer(2L)).willReturn(entity);
+
+        mockMvc.perform(get("/customers/{customerId}/accounts", 2L)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @Test
-    public void testCreateAccountInt() throws Exception{}
+    public void testCreateAccountInt() throws Exception{
+        ResponseEntity<Account> entity = new ResponseEntity<>(account, HttpStatus.CREATED);
+        given(accountController.createAccount(account.getCustomer().getId(),account)).willReturn(mock(ResponseEntity.class));
+
+        String textBody = mapper.writeValueAsString(account);
+        mockMvc.perform(post("/customers/{customerId}/accounts",2L)
+                .contentType(APPLICATION_JSON).content(textBody))
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void testUpdateAccountInt() throws Exception{}

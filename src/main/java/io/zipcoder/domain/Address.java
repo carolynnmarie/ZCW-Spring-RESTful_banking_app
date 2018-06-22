@@ -11,11 +11,11 @@ public class Address {
     @Column(name = "ADDRESS_ID")
     private Long id;
 
-    @Column(name = "STREET_NUMBER")
-    private String street_number;
+    @Column(name = "STREET_ADDRESS_LINE_ONE")
+    private String street_address_line_one;
 
-    @Column(name = "STREET_NAME")
-    private String street_name;
+    @Column(name = "STREET_ADDRESS_LINE_TWO")
+    private String street_address_line_two;
 
     @Column(name = "CITY")
     private String city;
@@ -32,9 +32,9 @@ public class Address {
 
     public Address(){ }
 
-    public Address(String street_number, String street_name, String city, String state, String zip){
-        this.street_number = street_number;
-        this.street_name = street_name;
+    public Address(String street_address_line_one, String street_address_line_two, String city, String state, String zip){
+        this.street_address_line_one = street_address_line_one;
+        this.street_address_line_two = street_address_line_one;
         this.city = city;
         this.state = state;
         this.zip = zip;
@@ -48,20 +48,20 @@ public class Address {
         this.id = id;
     }
 
-    public String getStreet_number() {
-        return street_number;
+    public String getStreet_address_line_one() {
+        return street_address_line_one;
     }
 
-    public void setStreet_number(String street_number) {
-        this.street_number = street_number;
+    public void setStreet_address_line_one(String street_number) {
+        this.street_address_line_one = street_number;
     }
 
-    public String getStreet_name() {
-        return street_name;
+    public String getStreet_address_line_two() {
+        return street_address_line_two;
     }
 
-    public void setStreet_name(String street_name) {
-        this.street_name = street_name;
+    public void setStreet_address_line_two(String street_address_line_two) {
+        this.street_address_line_two = street_address_line_two;
     }
 
     public String getCity() {
@@ -88,12 +88,5 @@ public class Address {
         this.zip = zip;
     }
 
-//
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
+
 }

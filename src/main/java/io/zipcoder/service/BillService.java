@@ -49,7 +49,8 @@ public class BillService {
         return new ResponseEntity<>(bill1,HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Bill> updateBill(Bill bill) {
+    public ResponseEntity<Bill> updateBill(Long billId, Bill bill) {
+        bill.setId(billId);
         Bill bill1 = billRepository.save(bill);
         return new ResponseEntity<>(bill1, HttpStatus.OK);
     }

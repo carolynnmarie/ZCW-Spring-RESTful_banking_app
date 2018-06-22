@@ -1,10 +1,7 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -25,11 +22,14 @@ public class Customer {
     @JoinColumn(name = "ADDRESS_ID")
     private Set<Address> addresses;
 
-    public Customer(){}
+    public Customer(){
+        this.addresses = new HashSet<>();
+    }
 
     public Customer(String first_name, String last_name){
         this.first_name = first_name;
         this.last_name = last_name;
+        this.addresses = new HashSet<>();
     }
 
     public Long getId() {
@@ -63,4 +63,7 @@ public class Customer {
     public void setAddress(Set<Address> addresses) {
         this.addresses = addresses;
     }
+
+
+
 }

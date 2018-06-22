@@ -19,24 +19,24 @@ public class AddressTest {
 
     @Test
     public void getStreetNumberTest(){
-        address.setStreet_number("200");
-        String expected = "200";
-        String actual = address.getStreet_number();
+        address.setStreet_address_line_one("200 Willow Lane");
+        String expected = "200 Willow Lane";
+        String actual = address.getStreet_address_line_one();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getStreetNumberTest2(){
         String expected = "2002";
-        String actual = address2.getStreet_number();
+        String actual = address2.getStreet_address_line_one();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getStreetNameTest(){
-        address.setStreet_name("Willow Avenue");
+        address.setStreet_address_line_two("Willow Avenue");
         String expected = "Willow Avenue";
-        String actual = address.getStreet_name();
+        String actual = address.getStreet_address_line_two();
         Assert.assertEquals(expected, actual);
     }
 

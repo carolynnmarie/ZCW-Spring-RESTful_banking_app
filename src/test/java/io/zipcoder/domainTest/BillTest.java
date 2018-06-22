@@ -16,6 +16,7 @@ public class BillTest {
         bill.setId(1L);
         Long expected = 1L;
         Long actual = bill.getId();
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

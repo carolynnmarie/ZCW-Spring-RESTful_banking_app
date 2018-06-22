@@ -40,7 +40,7 @@ public class BillController {
 
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
     public ResponseEntity<Bill> updateBill(@PathVariable("billId") Long billId, @RequestBody Bill bill) {
-        return billService.updateBill(bill);
+        return billService.updateBill(billId, bill);
     }
 
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)

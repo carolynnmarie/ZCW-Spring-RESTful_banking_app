@@ -30,7 +30,6 @@ public class Account {
     private Customer customer;
 
 
-
     public Long getId() {
         return id;
     }
@@ -76,20 +75,6 @@ public class Account {
     public Customer getCustomer() {
         return customer;
     }
-
-//    public LinkedHashSet<Deposit> getDeposits() {
-//        return deposits;
-//    }
-//    public void setDeposits(LinkedHashSet<Deposit> deposits) {
-//        this.deposits = deposits;
-//    }
-//
-//    public LinkedHashSet<Withdrawal> getWithdrawals() {
-//        return withdrawals;
-//    }
-//    public void setWithdrawals(LinkedHashSet<Withdrawal> withdrawals) {
-//        this.withdrawals = withdrawals;
-//    }
 
 
 }
