@@ -1,6 +1,7 @@
 package io.zipcoder.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,7 +10,7 @@ import java.util.Set;
 public class Account {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name ="ACCOUNT_ID")
     private Long id;
 
@@ -28,6 +29,8 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
+
+    public Account(){}
 
 
     public Long getId() {

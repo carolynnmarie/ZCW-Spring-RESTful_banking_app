@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static java.util.Collections.singletonList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -51,11 +53,11 @@ public class BillControllerTest {
 
     @Test
     public void testGetAllBillsForAccount(){
-        Iterable<Bill> bills = singletonList(bill);
-        ResponseEntity<Iterable<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
+        List<Bill> bills = singletonList(bill);
+        ResponseEntity<List<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
         given(mockBillService.getAllBillsForAccount(2L)).willReturn(expected);
 
-        ResponseEntity<Iterable<Bill>> actual = mockBillController.getAllBillsForAccount(bill.getAccount().getId());
+        ResponseEntity<List<Bill>> actual = mockBillController.getAllBillsForAccount(bill.getAccount().getId());
 
         verify(mockBillService).getAllBillsForAccount(anyLong());
         Assert.assertEquals(expected, actual);
@@ -74,14 +76,13 @@ public class BillControllerTest {
 
     @Test
     public void testGetAllBillsForCustomer(){
-        Iterable<Bill> bills = singletonList(bill);
-        ResponseEntity<Iterable<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
-        given(mockBillService.getAllBillsForCustomer(3L,2L)).willReturn(expected);
+        List<Bill> bills = singletonList(bill);
+        ResponseEntity<List<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
+        given(mockBillService.getAllBillsForCustomer(3L)).willReturn(expected);
 
-        ResponseEntity<Iterable<Bill>> actual = mockBillController.getAllBillsForCustomer(bill.getAccount().getCustomer().getId(),
-                bill.getAccount().getId());
+        ResponseEntity<List<Bill>> actual = mockBillController.getAllBillsForCustomer(bill.getAccount().getCustomer().getId());
 
-        verify(mockBillService).getAllBillsForCustomer(anyLong(), anyLong());
+        verify(mockBillService).getAllBillsForCustomer(anyLong());
         Assert.assertEquals(expected, actual);
     }
 

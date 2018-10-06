@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -27,9 +29,13 @@ public class AccountService {
         this.customerRepository = customerRepository;
     }
 
-    public ResponseEntity<Iterable<Account>> getAllAccounts(){
+    public ResponseEntity<List<Account>> getAllAccounts(){
         Iterable<Account> accounts = accountRepository.findAll();
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
+        List<Account> accountList = new ArrayList<>();
+        for (Account account:accounts) {
+            accountList.add(account);
+        }
+        return new ResponseEntity<>(accountList, HttpStatus.OK);
     }
 
     public ResponseEntity<Account> getAccountById(Long id){
@@ -37,8 +43,8 @@ public class AccountService {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    public ResponseEntity<Iterable<Account>> getAccountsOfCustomer(Long customerId){
-        Iterable<Account> accounts = accountRepository.findAllByCustomer_Id(customerId);
+    public ResponseEntity<List<Account>> getAccountsOfCustomer(Long customerId){
+        List<Account> accounts = accountRepository.findAllByCustomer_Id(customerId);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 

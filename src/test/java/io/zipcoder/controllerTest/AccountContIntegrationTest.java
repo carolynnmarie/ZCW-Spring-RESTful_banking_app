@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static java.util.Collections.singletonList;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -50,8 +52,8 @@ public class AccountContIntegrationTest {
 
     @Test
     public void testGetAllAccountsInt() throws Exception {
-        Iterable<Account> accounts = singletonList(account);
-        ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
+        List<Account> accounts = singletonList(account);
+        ResponseEntity<List<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
         given(accountController.getAllAccounts()).willReturn(expected);
 
         mockMvc.perform(get("/accounts")
@@ -71,8 +73,8 @@ public class AccountContIntegrationTest {
 
     @Test
     public void testGetAccountsForCustomerInt() throws Exception{
-        Iterable<Account> accounts = singletonList(account);
-        ResponseEntity<Iterable<Account>> entity = new ResponseEntity<>(accounts, HttpStatus.OK);
+        List<Account> accounts = singletonList(account);
+        ResponseEntity<List<Account>> entity = new ResponseEntity<>(accounts, HttpStatus.OK);
         given(accountController.getAccountsForCustomer(2L)).willReturn(entity);
 
         mockMvc.perform(get("/customers/{customerId}/accounts", 2L)
@@ -87,7 +89,8 @@ public class AccountContIntegrationTest {
 
         String textBody = mapper.writeValueAsString(account);
         mockMvc.perform(post("/customers/{customerId}/accounts",2L)
-                .contentType(APPLICATION_JSON).content(textBody))
+                .contentType(APPLICATION_JSON)
+                .content(textBody))
                 .andExpect(status().isOk());
     }
 

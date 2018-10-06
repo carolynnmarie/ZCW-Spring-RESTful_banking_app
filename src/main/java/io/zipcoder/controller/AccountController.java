@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 public class AccountController {
 
@@ -19,7 +22,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Account>> getAllAccounts(){
+    public ResponseEntity<List<Account>> getAllAccounts(){
         return accountService.getAllAccounts();
     }
 
@@ -29,7 +32,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Account>> getAccountsForCustomer(@PathVariable("customerId") Long customerId){
+    public ResponseEntity<List<Account>> getAccountsForCustomer(@PathVariable("customerId") Long customerId){
         return accountService.getAccountsOfCustomer(customerId);
     }
 

@@ -17,6 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static java.util.Collections.singletonList;
@@ -53,10 +57,10 @@ public class BillServiceTest {
 
     @Test
     public void testGetBillsForAccount(){
-        Iterable<Bill> bills = singletonList(bill);
-        ResponseEntity<Iterable<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
+        List<Bill> bills = singletonList(bill);
+        ResponseEntity<List<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
         given(billRepository.findAllByAccount_Id(2L)).willReturn(bills);
-        ResponseEntity<Iterable<Bill>> actual = billService.getAllBillsForAccount(2L);
+        ResponseEntity<List<Bill>> actual = billService.getAllBillsForAccount(2L);
 
         verify(billRepository).findAllByAccount_Id(anyLong());
         Assert.assertEquals(expected, actual);
@@ -74,12 +78,15 @@ public class BillServiceTest {
 
     @Test
     public void testGetBillsForCustomer(){
-        Iterable<Bill> bills = singletonList(bill);
-        ResponseEntity<Iterable<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
-        given(billRepository.findAllByCustomer_Id(3L, 2L)).willReturn(bills);
-        ResponseEntity<Iterable<Bill>> actual = billService.getAllBillsForCustomer(3L, 2L);
+        List<Bill> bills = singletonList(bill);
+        List<Account> accountList = new ArrayList<>(Arrays.asList(account));
+        ResponseEntity<List<Bill>> expected = new ResponseEntity<>(bills, HttpStatus.OK);
+        given(accountRepository.findAllByCustomer_Id(3L)).willReturn(accountList);
+        given(billRepository.findAllByAccount_Id(2L)).willReturn(bills);
+        ResponseEntity<List<Bill>> actual = billService.getAllBillsForCustomer(3L);
 
-        verify(billRepository).findAllByCustomer_Id(anyLong(), anyLong());
+        verify(accountRepository).findAllByCustomer_Id(anyLong());
+        verify(billRepository).findAllByAccount_Id(anyLong());
         Assert.assertEquals(expected, actual);
     }
 

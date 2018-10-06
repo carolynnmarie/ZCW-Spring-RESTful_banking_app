@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static java.util.Collections.singletonList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -47,11 +49,11 @@ public class AccountControllerTest {
 
     @Test
     public void testGetAllAccounts() throws Exception {
-        Iterable<Account> accounts = singletonList(account);
-        ResponseEntity<Iterable<Account>> response = new ResponseEntity<>(accounts, HttpStatus.OK);
+        List<Account> accounts = singletonList(account);
+        ResponseEntity<List<Account>> response = new ResponseEntity<>(accounts, HttpStatus.OK);
 
         given(mockAccountService.getAllAccounts()).willReturn(response);
-        ResponseEntity<Iterable<Account>> actual = mockAccountController.getAllAccounts();
+        ResponseEntity<List<Account>> actual = mockAccountController.getAllAccounts();
 
         verify(mockAccountService).getAllAccounts();
         Assert.assertEquals(response, actual);
@@ -69,10 +71,10 @@ public class AccountControllerTest {
 
     @Test
     public void testGetAccountsForCustomer(){
-        Iterable<Account> iterable = singletonList(account);
-        ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(iterable, HttpStatus.OK);
+        List<Account> iterable = singletonList(account);
+        ResponseEntity<List<Account>> expected = new ResponseEntity<>(iterable, HttpStatus.OK);
         given(mockAccountService.getAccountsOfCustomer(account.getCustomer().getId())).willReturn(expected);
-        ResponseEntity<Iterable<Account>> actual = mockAccountController.getAccountsForCustomer(account.getCustomer().getId());
+        ResponseEntity<List<Account>> actual = mockAccountController.getAccountsForCustomer(account.getCustomer().getId());
 
         verify(mockAccountService).getAccountsOfCustomer(anyLong());
         Assert.assertEquals(expected, actual);

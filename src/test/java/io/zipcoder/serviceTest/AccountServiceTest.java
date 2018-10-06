@@ -18,6 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static java.util.Collections.singletonList;
@@ -50,11 +54,11 @@ public class AccountServiceTest {
 
     @Test
     public void testGetAllAccounts(){
-       Iterable<Account> accounts = singletonList(account);
+       List<Account> accounts = new ArrayList<>(Arrays.asList(account));
        given(mockAccountRepo.findAll()).willReturn(accounts);
 
-       ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
-       ResponseEntity<Iterable<Account>> actual = mockService.getAllAccounts();
+       ResponseEntity<List<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
+       ResponseEntity<List<Account>> actual = mockService.getAllAccounts();
 
        verify(mockAccountRepo).findAll();
        Assert.assertEquals(expected, actual);
@@ -73,11 +77,11 @@ public class AccountServiceTest {
 
     @Test
     public void testGetAccountsOfCustomer(){
-        Iterable<Account> accounts = singletonList(account);
+        List<Account> accounts = singletonList(account);
         given(mockAccountRepo.findAllByCustomer_Id(2L)).willReturn(accounts);
 
-        ResponseEntity<Iterable<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
-        ResponseEntity<Iterable<Account>> actual = mockService.getAccountsOfCustomer(2L);
+        ResponseEntity<List<Account>> expected = new ResponseEntity<>(accounts, HttpStatus.OK);
+        ResponseEntity<List<Account>> actual = mockService.getAccountsOfCustomer(2L);
 
         verify(mockAccountRepo).findAllByCustomer_Id(anyLong());
         Assert.assertEquals(expected, actual);

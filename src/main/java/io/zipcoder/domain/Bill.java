@@ -34,13 +34,10 @@ public class Bill {
     @Column(name = "PAYMENT_AMOUNT")
     private Double payment_amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
-    @ManyToOne
-    @JoinColumn(name="CUSTOMER_ID")
-    private Customer customer;
 
     public Bill() { }
 

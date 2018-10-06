@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class BillController {
 
@@ -19,7 +21,7 @@ public class BillController {
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity<List<Bill>> getAllBillsForAccount(@PathVariable("accountId") Long accountId) {
         return billService.getAllBillsForAccount(accountId);
     }
 
@@ -28,9 +30,9 @@ public class BillController {
         return billService.getBillById(billId);
     }
 
-    @RequestMapping(value="/customers/{customerId}/accounts/{accountId}/bills", method= RequestMethod.GET)
-    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(@PathVariable("customerId") Long customerId, @PathVariable("accountId") Long accountId) {
-        return billService.getAllBillsForCustomer(customerId, accountId);
+    @RequestMapping(value="/customers/{customerId}/bills", method= RequestMethod.GET)
+    public ResponseEntity<List<Bill>> getAllBillsForCustomer(@PathVariable("customerId") Long customerId) {
+        return billService.getAllBillsForCustomer(customerId);
     }
 
     @RequestMapping(value="/accounts/{accountId}/bills", method = RequestMethod.POST)

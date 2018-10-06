@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BillService {
@@ -27,8 +29,8 @@ public class BillService {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<Iterable<Bill>> getAllBillsForAccount(Long accountId) {
-        Iterable<Bill> allBillsForAccount = billRepository.findAllByAccount_Id(accountId);
+    public ResponseEntity<List<Bill>> getAllBillsForAccount(Long accountId) {
+        List<Bill> allBillsForAccount = billRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allBillsForAccount, HttpStatus.OK);
     }
 
@@ -37,8 +39,13 @@ public class BillService {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-    public ResponseEntity<Iterable<Bill>> getAllBillsForCustomer(Long customerId, Long accountId) {
-        Iterable<Bill> allBillsForCustomer = billRepository.findAllByCustomer_Id(customerId, accountId);
+    public ResponseEntity<List<Bill>> getAllBillsForCustomer(Long customerId) {
+        List<Account> accounts = accountRepository.findAllByCustomer_Id(customerId);
+        List<Bill> allBillsForCustomer = new ArrayList<>();
+        for(Account account:accounts){
+            allBillsForCustomer.addAll(billRepository.findAllByAccount_Id(account.getId()));
+        }
+//        Iterable<Bill> allBillsForCustomer = billRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allBillsForCustomer, HttpStatus.OK);
     }
 
