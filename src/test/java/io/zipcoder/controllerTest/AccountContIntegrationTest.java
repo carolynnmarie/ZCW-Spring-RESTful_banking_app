@@ -87,7 +87,8 @@ public class AccountContIntegrationTest {
 
     @Test
     public void testCreateAccountInt() throws Exception{
-        given(accountController.createAccount(account.getCustomer().getId(),account)).willReturn(mock(ResponseEntity.class));
+        given(accountController.createAccount(account.getCustomer().getId(),account))
+                .willReturn(mock(ResponseEntity.class));
 
         String textBody = mapper.writeValueAsString(account);
         mockMvc.perform(post("/customers/{customerId}/accounts",2L)

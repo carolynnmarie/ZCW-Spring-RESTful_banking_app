@@ -2,7 +2,6 @@ package io.zipcoder.controllerTest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.zipcoder.controller.AccountController;
 import io.zipcoder.controller.DepositController;
 import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Deposit;
@@ -12,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +19,7 @@ import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -79,16 +78,35 @@ public class DepositContIntegrationTest {
 
     @Test
     public void createDepositIntegTest() throws Exception{
+        given(mockDepositController.createDeposit(account.getId(),deposit1)).willReturn(mock(ResponseEntity.class));
 
+        String body = mapper.writeValueAsString(deposit1);
+        mockMvc.perform(post("/accounts/{accountId}/deposits",account.getId())
+                .characterEncoding("utf-8")
+                .contentType(APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void updateDepositIntegTest() throws Exception{
+        given(mockDepositController.updateDeposit(deposit1.getId(),deposit1))
+                .willReturn(new ResponseEntity<Deposit>(deposit1,OK));
 
+        String body = mapper.writeValueAsString(deposit1);
+        mockMvc.perform(put("/deposits/{depositId}",deposit1.getId())
+                .content(body)
+                .characterEncoding("utf-8")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void deleteDepositIntegTest() throws Exception{
+        mockMvc.perform(delete("/deposits/{depositId}",deposit1.getId())
+                .contentType(APPLICATION_JSON)
+                .characterEncoding("utf-8"))
+                .andExpect(status().isOk());
 
     }
 
