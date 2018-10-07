@@ -15,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.JoinTable;
-
 import static java.util.Collections.singletonList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -62,7 +60,7 @@ public class DepositControllerTest {
     public void testGetDeposit(){
         ResponseEntity<Deposit> expected = new ResponseEntity<>(deposit, HttpStatus.OK);
         given(mockDepositService.getDeposit(1L)).willReturn(expected);
-        ResponseEntity<Deposit> actual = mockDepositController.getDeposit(1L);
+        ResponseEntity<Deposit> actual = mockDepositController.getDepositById(1L);
 
         verify(mockDepositService).getDeposit(anyLong());
         Assert.assertEquals(expected, actual);

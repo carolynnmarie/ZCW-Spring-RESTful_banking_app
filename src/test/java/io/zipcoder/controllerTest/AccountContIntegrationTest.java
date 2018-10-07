@@ -57,7 +57,8 @@ public class AccountContIntegrationTest {
         given(accountController.getAllAccounts()).willReturn(expected);
 
         mockMvc.perform(get("/accounts")
-                .contentType(APPLICATION_JSON))
+                .contentType(APPLICATION_JSON)
+                .characterEncoding("utf-8"))
                 .andExpect(status().isOk());
     }
 
@@ -67,7 +68,8 @@ public class AccountContIntegrationTest {
         given(accountController.getAccountById(1L)).willReturn(entity);
 
         mockMvc.perform(get("/accounts/{accountId}", 1L)
-                .contentType(APPLICATION_JSON))
+                .contentType(APPLICATION_JSON)
+                .characterEncoding("utf-8"))
                 .andExpect(status().isOk());
     }
 
@@ -78,18 +80,19 @@ public class AccountContIntegrationTest {
         given(accountController.getAccountsForCustomer(2L)).willReturn(entity);
 
         mockMvc.perform(get("/customers/{customerId}/accounts", 2L)
+                .characterEncoding("utf-8")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testCreateAccountInt() throws Exception{
-        ResponseEntity<Account> entity = new ResponseEntity<>(account, HttpStatus.CREATED);
         given(accountController.createAccount(account.getCustomer().getId(),account)).willReturn(mock(ResponseEntity.class));
 
         String textBody = mapper.writeValueAsString(account);
         mockMvc.perform(post("/customers/{customerId}/accounts",2L)
                 .contentType(APPLICATION_JSON)
+                .characterEncoding("utf-8")
                 .content(textBody))
                 .andExpect(status().isOk());
     }
@@ -101,6 +104,7 @@ public class AccountContIntegrationTest {
         String body = mapper.writeValueAsString(account);
         mockMvc.perform(put("/accounts/{accountId}",1L)
                 .contentType(APPLICATION_JSON)
+                .characterEncoding("utf-8")
                 .content(body))
                 .andExpect(status().isOk());
     }

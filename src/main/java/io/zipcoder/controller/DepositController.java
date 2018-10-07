@@ -25,7 +25,7 @@ public class DepositController {
     }
 
     @RequestMapping(value="/deposits/{depositId}", method = RequestMethod.GET)
-    public ResponseEntity<Deposit> getDeposit(@PathVariable("depositId") Long depositId) {
+    public ResponseEntity<Deposit> getDepositById(@PathVariable("depositId") Long depositId) {
         return depositService.getDeposit(depositId);
     }
 
