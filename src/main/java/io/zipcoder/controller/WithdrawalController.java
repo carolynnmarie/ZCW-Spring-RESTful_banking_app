@@ -19,7 +19,7 @@ public class WithdrawalController {
     }
 
     @RequestMapping(value="accounts/{acountId}/withdrawals", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Withdrawal>> getWithdrawalsByAccount(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity<List<Withdrawal>> getWithdrawalsByAccount(@PathVariable("accountId") Long accountId) {
         return withdrawalService.getWithdrawalsByAccount(accountId);
     }
 

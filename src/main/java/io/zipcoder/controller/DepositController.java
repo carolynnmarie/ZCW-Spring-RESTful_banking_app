@@ -20,7 +20,7 @@ public class DepositController {
     }
 
     @RequestMapping(value="/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Deposit>> getDepositsByAccount(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity<List<Deposit>> getDepositsByAccount(@PathVariable("accountId") Long accountId) {
         return depositService.getDepositsByAccount(accountId);
     }
 

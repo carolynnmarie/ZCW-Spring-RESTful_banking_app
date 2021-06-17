@@ -85,7 +85,7 @@ public class DepositContIntegrationTest {
                 .characterEncoding("utf-8")
                 .contentType(APPLICATION_JSON)
                 .content(body))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test

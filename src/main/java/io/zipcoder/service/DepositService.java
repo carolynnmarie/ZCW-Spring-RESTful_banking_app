@@ -4,6 +4,7 @@ import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Deposit;
 import io.zipcoder.repository.AccountRepository;
 import io.zipcoder.repository.DepositRepository;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class DepositService {
 
     }
 
-    public ResponseEntity<Iterable<Deposit>> getDepositsByAccount(Long accountId) {
-        Iterable<Deposit> allDepositsForAccount = depositRepository.findAllByAccount_Id(accountId);
+    public ResponseEntity<List<Deposit>> getDepositsByAccount(Long accountId) {
+        List<Deposit> allDepositsForAccount = depositRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allDepositsForAccount, HttpStatus.OK);
     }
 

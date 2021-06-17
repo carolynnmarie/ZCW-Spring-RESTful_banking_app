@@ -3,6 +3,7 @@ package io.zipcoder.service;
 import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Withdrawal;
 import io.zipcoder.repository.WithdrawalRepository;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class WithdrawalService {
         this.account = new Account();
     }
 
-    public ResponseEntity<Iterable<Withdrawal>> getWithdrawalsByAccount(Long accountId) {
-        Iterable<Withdrawal> allWithdrawalsForAccount = withdrawalRepository.findAllByAccount_Id(accountId);
+    public ResponseEntity<List<Withdrawal>> getWithdrawalsByAccount(Long accountId) {
+        List<Withdrawal> allWithdrawalsForAccount = withdrawalRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(allWithdrawalsForAccount, HttpStatus.OK);
     }
 
